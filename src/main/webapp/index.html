@@ -8,6 +8,10 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
   <div class="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+    <div class="flex justify-center mb-6 text-xl font-bold">
+        Bienvenue sur Covoitme !
+    </div>
+
     <div class="flex justify-center mb-6">
       <button id="showLogin" class="text-blue-600 font-semibold mr-4">Connexion</button>
       <button id="showRegister" class="text-gray-500 font-semibold">Inscription</button>
@@ -31,6 +35,7 @@
            pattern="0[1-9][0-9]{8}" 
            title="Format attendu : 10 chiffres commençant par 0 (ex: 0123456789)"
            class="w-full p-2 border rounded" />
+      <input type="number" placeholder="Votre âge" required min="18" max="100" title="Vous devez avoir au minimum 18 ans pour pouvoir vous inscrire !"  class="w-full p-2 border rounded" />
       <input type="password" placeholder="Mot de passe" required class="w-full p-2 border rounded" />
       <input type="password" placeholder="Confirmer le mot de passe" required class="w-full p-2 border rounded" />
       <button type="submit" class="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700">S'inscrire</button>
