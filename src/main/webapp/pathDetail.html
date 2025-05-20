@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du trajet - CovoiturageApp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <header class="bg-white shadow">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="home.html" class="text-2xl font-bold text-blue-600">Covoitme</a>
+        <nav class="space-x-6 hidden md:flex">
+          <a href="home.html" class="text-gray-700 hover:text-blue-600">Accueil</a>
+          <a href="newPath.html" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
+          <a href="myPath.html" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
+          <a href="createdPath.html" class="text-gray-700 hover:text-blue-600">Mes trajets</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a href="profile.html" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">
+                <img class="w-12 h-12 rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="user photo">
+            </a>
+            <a href="#"
+                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
+                Se déconnecter
+            </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-6">
+        <h1 class="text-3xl font-bold text-teal-800 mb-6">Mardi 20 mai</h1>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-start">
+                    <div class="relative flex flex-col items-center mr-6">
+                        <div class="text-left w-16">
+                            <div class="font-bold text-lg">15:00</div>
+                            <div class="text-sm text-gray-500">1h40</div>
+                        </div>
+                        <div class="h-24 w-0.5 bg-teal-600 my-2 ml-2"></div>
+                        <div class="text-left w-16">
+                            <div class="font-bold text-lg">16:40</div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="mb-6">
+                            <div class="flex items-center mb-1">
+                                <span class="font-semibold text-lg">Le Bourget</span>
+                            </div>
+                            <div class="text-gray-600">7/9 Av. du 8 Mai 1945</div>
+                        </div>
+                        <div class="h-16"></div>
+                        <div class="mb-6">
+                            <div class="flex items-center mb-1">
+                                <span class="font-semibold text-lg">Reims</span>
+                            </div>
+                            <div class="text-gray-600">4 Pl. Martyrs de la Résistance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Mohamed" class="h-full w-full object-cover" />
+                        </div>
+                        <div>
+                            <div class="font-semibold text-xl">Mohamed</div>
+                            <div class="text-gray-600 text-sm">Conducteur</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-chevron-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <ul class="space-y-6">
+                    <li class="flex items-start">
+                        <div class="text-gray-500 mr-4 mt-1">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span class="text-gray-700">3 places disponibles</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="text-gray-500 mr-4 mt-1">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <span class="text-gray-700">RENAULT GRAND SCENIC - Noir</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-gray-700">Je préfère ne pas voyager en compagnie d'animaux. J'ai 29 ans, j'aime les chevaux et papoter !</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="p-6">
+                <h2 class="text-xl font-bold mb-6">Passagers</h2>
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Mamadou" class="h-full w-full object-cover" />
+                        </div>
+                        <div>
+                            <div class="font-semibold text-lg">Mamadou</div>
+                            <div class="text-gray-600 text-sm">Le Bourget → Cathédrale de Reims</div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-chevron-right text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="p-6">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="h-12 w-12 flex items-center justify-center bg-gray-100 rounded-full mr-4">
+                            <i class="fas fa-car text-gray-700"></i>
+                        </div>
+                        <div>
+                            <div class="text-lg">Mardi 20 mai</div>
+                            <div class="flex items-center">
+                                <div class="flex flex-col items-center mr-3">
+                                    <span class="text-sm font-medium">15:00</span>
+                                    <div class="h-4 w-0.5 bg-gray-300 my-0.5"></div>
+                                    <span class="text-sm font-medium">16:40</span>
+                                </div>
+                                <div>
+                                    <div class="text-sm">Le Bourget</div>
+                                    <div class="text-sm">Reims</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <div class="font-bold text-2xl">20<sup class="text-sm">,79</sup> €</div>
+                        <div class="text-gray-600">1 passager</div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-full flex items-center justify-center transition">
+                        <i class="far fa-calendar-plus mr-2"></i>
+                        Demande de réservation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white py-10 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">CovoiturageApp</h3>
+                    <p class="text-gray-400">Le covoiturage simple, sécurisé et économique.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Découvrir</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="#" class="hover:text-white">Comment ça marche</a></li>
+                        <li><a href="#" class="hover:text-white">Nos conseils</a></li>
+                        <li><a href="#" class="hover:text-white">Témoignages</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="#" class="hover:text-white">Trajets réguliers</a></li>
+                        <li><a href="#" class="hover:text-white">Covoiturage entreprise</a></li>
+                        <li><a href="#" class="hover:text-white">Événements</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li><a href="#" class="hover:text-white">Aide</a></li>
+                        <li><a href="#" class="hover:text-white">Nous contacter</a></li>
+                        <li><a href="#" class="hover:text-white">À propos</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-400 mb-4 md:mb-0">
+                    © 2025 CovoiturageApp - Tous droits réservés
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

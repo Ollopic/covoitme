@@ -12,34 +12,45 @@
       <form action="/trajets" method="POST" class="space-y-4">
         <div>
           <label for="depart" class="block text-sm font-medium text-gray-700">Ville de départ</label>
-          <input type="text" id="depart" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="text" placeholder="Reims..." id="depart" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div>
           <label for="destination" class="block text-sm font-medium text-gray-700">Ville d'arrivée</label>
-          <input type="text" id="destination" name="destination" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
-
-        <div>
-          <label for="rdv-address" class="block text-sm font-medium text-gray-700">Adresse exacte du rendez-vous</label>
-          <input type="text" id="rdv-address" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="text" id="destination" placeholder="Paris..." name="destination" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="datePicker" class="block text-sm font-medium text-gray-700">Date du départ</label>
-            <input type="date" id="datePicker" name="date" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label for="rdv-address" class="block text-sm font-medium text-gray-700">Adresse exacte du rendez-vous</label>
+            <input placeholder="2 Av. Robert Schuman..." type="text" id="rdv-address" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
+          <div>
+            <label for="finish-address" class="block text-sm font-medium text-gray-700">Adresse exacte de l'arrivée</label>
+            <input placeholder="24 Rue du Commandant Guilbaud..." type="text" id="finish-address" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div>
+          <label for="datePicker" class="block text-sm font-medium text-gray-700">Date du départ</label>
+          <input type="date" id="datePicker" name="date" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="heure" class="block text-sm font-medium text-gray-700">Heure du départ</label>
             <input type="time" id="heure" name="heure" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
+          <div>
+            <label for="comeback" class="block text-sm font-medium text-gray-700">Heure de l'arrivée</label>
+            <input type="time" id="comeback" name="comeback" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="car" class="block text-sm font-medium text-gray-700">Votre modèle de voiture</label>
-            <input type="text" id="car" name="car" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label for="car" class="block text-sm font-medium text-gray-700">Votre voiture</label>
+            <input placeholder="Peugeot 3008 noire" type="text" id="car" name="car" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <div>
             <label for="matriculation" class="block text-sm font-medium text-gray-700">Plaque d'immatriculation</label>
@@ -49,7 +60,12 @@
 
         <div>
           <label for="places" class="block text-sm font-medium text-gray-700">Nombre de places disponibles</label>
-          <input type="number" id="places" name="places" min="1" max="8" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <select id="places" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>1 passager</option>
+            <option>2 passagers</option>
+            <option>3 passagers</option>
+            <option>4 passagers</option>
+          </select>
         </div>
 
         <div>
