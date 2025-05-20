@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -70,7 +73,7 @@ public class ServletRegister extends HttpServlet {
                     insertStmt.setString(3, email);
                     insertStmt.setString(4, telephone);
                     insertStmt.setInt(5, age);
-                    insertStmt.setString(6, motDePasse);
+                    insertStmt.setString(6, BCrypt.hashpw(motDePasse, BCrypt.gensalt()));
 
                     int rowsInserted = insertStmt.executeUpdate();
 

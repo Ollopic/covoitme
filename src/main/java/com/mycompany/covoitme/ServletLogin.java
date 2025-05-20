@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class ServletLogin extends HttpServlet {
@@ -39,22 +40,26 @@ public class ServletLogin extends HttpServlet {
             Connection connection = null;
             try {
                 connection = DatabaseConnection.getConnection();
-                String query = "SELECT prenom FROM utilisateur WHERE email = ? AND password = ?";
+                String query = "SELECT prenom, password FROM utilisateur WHERE email = ?";
                 PreparedStatement stmt = connection.prepareStatement(query);
                 stmt.setString(1, email);
-                stmt.setString(2, motDePasse);
 
                 ResultSet resultSet = stmt.executeQuery();
 
                 if (resultSet.next()) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("loggedIn", true);
-                    session.setAttribute("email", email);
-                    session.setAttribute("prenom", resultSet.getString("prenom"));
+                    String hashStocke = resultSet.getString("password");
+                    if (BCrypt.checkpw(motDePasse, hashStocke)) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("loggedIn", true);
+                        session.setAttribute("email", email);
+                        session.setAttribute("prenom", resultSet.getString("prenom"));
 
-                    response.sendRedirect(request.getContextPath() + "/home");
-                    return;
+                        response.sendRedirect(request.getContextPath() + "/home");
+                        return;
                 } else {
+                    errorMessage = "Email ou mot de passe incorrect";
+                }
+            }   else {
                     errorMessage = "Email ou mot de passe incorrect";
                 }
             } catch (SQLException | ClassNotFoundException e) {
