@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,7 +18,7 @@
           <a href="createdPath.html" class="text-gray-700 hover:text-blue-600">Mes trajets</a>
         </nav>
         <div class="flex items-center gap-4">
-            <a href="profile.html" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">
+            <a href="profile" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">
                 <img class="w-12 h-12 rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="user photo">
             </a>
             <a href="#"
@@ -34,27 +35,27 @@
     <div class="space-y-4">
       <div>
         <label class="block text-gray-600 text-lg font-semibold">Prénom :</label>
-        <p class="text-gray-800 text-lg">Jean</p>
+        <p class="text-gray-800 text-lg"><%= request.getAttribute("prenom") %></p>
       </div>
 
       <div>
         <label class="block text-gray-600 text-lg font-semibold">Nom :</label>
-        <p class="text-gray-800 text-lg">Dupont</p>
+        <p class="text-gray-800 text-lg"><%= request.getAttribute("nom") %></p>
       </div>
 
       <div>
         <label class="block text-gray-600 text-lg font-semibold">Email :</label>
-        <p class="text-gray-800 text-lg">jean.dupont@example.com</p>
+        <p class="text-gray-800 text-lg"><%= request.getAttribute("email") %></p>
       </div>
 
       <div>
         <label class="block text-gray-600 text-lg font-semibold">Numéro de téléphone :</label>
-        <p class="text-gray-800 text-lg">+33 6 12 34 56 78</p>
+        <p class="text-gray-800 text-lg"><%= request.getAttribute("numTel") %></p>
       </div>
 
       <div>
         <label class="block text-gray-600 text-lg font-semibold">Âge :</label>
-        <p class="text-gray-800 text-lg">28 ans</p>
+        <p class="text-gray-800 text-lg"><%= request.getAttribute("age") %></p>
       </div>
     </div>
   </div>
