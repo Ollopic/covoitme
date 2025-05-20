@@ -9,10 +9,10 @@
   <body class="font-sans text-gray-800">
     <header class="bg-white shadow">
       <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div class="text-2xl font-bold text-blue-600">Covoitme</div>
+        <a href="home.html" class="text-2xl font-bold text-blue-600">Covoitme</a>
         <nav class="space-x-6 hidden md:flex">
           <a href="#" class="text-gray-700 hover:text-blue-600">Accueil</a>
-          <a href="#" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
+          <a href="newTrajet.html" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
           <a href="#" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
           <a href="#" class="text-gray-700 hover:text-blue-600">Aide</a>
         </nav>
@@ -30,7 +30,7 @@
         <form class="bg-white p-6 rounded shadow-md max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4">
           <input type="text" placeholder="Départ" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input type="text" placeholder="Destination" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <input type="date" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="datePicker" type="date" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <select class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>1 passager</option>
             <option>2 passagers</option>
@@ -96,6 +96,16 @@
         </ul>
       </div>
     </section>
+      
+      <script>
+        function toDateInputValue(dateObject){
+            const local = new Date(dateObject);
+            local.setMinutes(dateObject.getMinutes() - dateObject.getTimezoneOffset());
+            return local.toJSON().slice(0,10);
+        }
+
+        document.getElementById('datePicker').value = toDateInputValue(new Date());
+      </script>
 
     <footer class="bg-gray-800 text-white py-10">
       <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
