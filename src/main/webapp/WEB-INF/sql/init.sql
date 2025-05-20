@@ -1,21 +1,12 @@
-CREATE TABLE Vehicule (
-    id SERIAL PRIMARY KEY,
-    marque VARCHAR(100),
-    modele VARCHAR(100),
-    nImmatriculation VARCHAR(50)
-);
-
 CREATE TABLE Utilisateur (
     id SERIAL PRIMARY KEY,
     nom VARCHAR(100),
     prenom VARCHAR(100),
-    adresseMail VARCHAR(150),
+    email VARCHAR(150),
     numTel VARCHAR(20),
     age INT,
     password VARCHAR(100),
-    profilePic BYTEA,
-    vehicule_id INT,
-    FOREIGN KEY (vehicule_id) REFERENCES Vehicule(id)
+    profilePic BYTEA
 );
 
 CREATE TABLE Trajet (
@@ -26,9 +17,9 @@ CREATE TABLE Trajet (
     nbPlacesLibres INT,
     lieuDepart VARCHAR(200),
     conducteur_id INT,
-    vehicule_id INT,
-    FOREIGN KEY (conducteur_id) REFERENCES Utilisateur(id),
-    FOREIGN KEY (vehicule_id) REFERENCES Vehicule(id)
+    vehicule VARCHAR(100),
+    immatriculation VARCHAR(20),
+    FOREIGN KEY (conducteur_id) REFERENCES Utilisateur(id)
 );
 
 CREATE TABLE PassagerTrajet (
