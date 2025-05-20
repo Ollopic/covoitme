@@ -61,7 +61,6 @@
     const showLogin = document.getElementById("showLogin");
     const showRegister = document.getElementById("showRegister");
 
-    // Fonction pour afficher le formulaire de connexion
     function displayLoginForm() {
       loginForm.classList.remove("hidden");
       registerForm.classList.add("hidden");
@@ -71,7 +70,6 @@
       showRegister.classList.add("text-gray-500");
     }
     
-    // Fonction pour afficher le formulaire d'inscription
     function displayRegisterForm() {
       loginForm.classList.add("hidden");
       registerForm.classList.remove("hidden");
@@ -84,7 +82,6 @@
     showLogin.addEventListener("click", displayLoginForm);
     showRegister.addEventListener("click", displayRegisterForm);
     
-    // Afficher le formulaire d'inscription si une erreur s'est produite lors de l'inscription
     <% if (request.getAttribute("prenom") != null) { %>
       displayRegisterForm();
     <% } %>
