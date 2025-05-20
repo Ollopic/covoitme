@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100 font-sans">
+    <%@ include file="navbar.jsp" %>
     <div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
       <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Publier un trajet</h1>
       <form action="/trajets" method="POST" class="space-y-4">
@@ -96,4 +97,5 @@
       </script>
     </div>
   </body>
+  <%@ include file="footer.jsp" %>
 </html>
