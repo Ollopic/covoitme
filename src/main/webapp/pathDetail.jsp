@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,27 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <header class="bg-white shadow">
-      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="home.html" class="text-2xl font-bold text-blue-600">Covoitme</a>
-        <nav class="space-x-6 hidden md:flex">
-          <a href="home.html" class="text-gray-700 hover:text-blue-600">Accueil</a>
-          <a href="newPath.html" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
-          <a href="myPath.html" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
-          <a href="createdPath.html" class="text-gray-700 hover:text-blue-600">Mes trajets</a>
-        </nav>
-        <div class="flex items-center gap-4">
-            <a href="profile" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">
-                <img class="w-12 h-12 rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="user photo">
-            </a>
-            <a href="#"
-                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
-                Se déconnecter
-            </a>
-        </div>
-      </div>
-    </header>
+<body class="bg-gray-100 min-h-screen flex flex-col justify-between">
+    <%@ include file="navbar.jsp" %>
 
     <div class="container mx-auto px-4 py-6">
         <h1 class="text-3xl font-bold text-teal-800 mb-6">Mardi 20 mai</h1>
@@ -165,15 +147,5 @@
         </div>
     </div>
 
-    <footer class="bg-gray-800 text-white py-10">
-      <div class="container mx-auto px-2 flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <a href="#" class="hover:underline">À propos</a> |
-          <a href="#" class="hover:underline">Conditions générales</a> |
-          <a href="#" class="hover:underline">Politique de confidentialité</a> |
-          <a href="#" class="hover:underline">Contact</a>
-        </div>
-      </div>
-    </footer>
 </body>
 </html>

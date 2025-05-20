@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -7,31 +8,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="font-sans text-gray-800">
-    <header class="bg-white shadow">
-      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="home.html" class="text-2xl font-bold text-blue-600">Covoitme</a>
-        <nav class="space-x-6 hidden md:flex">
-          <a href="home.html" class="text-gray-700 hover:text-blue-600">Accueil</a>
-          <a href="newPath.html" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
-          <a href="myPath.html" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
-          <a href="createdPath.html" class="text-gray-700 hover:text-blue-600">Mes trajets</a>
-        </nav>
-        <div class="flex items-center gap-4">
-            <a href="profile" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">
-                <img class="w-12 h-12 rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="user photo">
-            </a>
-            <a href="#"
-                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
-                Se déconnecter
-            </a>
-        </div>
-      </div>
-    </header>
+    <%@ include file="navbar.jsp" %>
 
     <section class="bg-blue-50 py-16">
       <div class="container mx-auto px-4 text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Partez ensemble, voyagez mieux.</h1>
-        <form class="bg-white p-6 rounded shadow-md max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4" action="listPath.html">
+        <form class="bg-white p-6 rounded shadow-md max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4" action="listPath.jsp">
           <input type="text" placeholder="Départ" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input type="text" placeholder="Destination" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input id="datePicker" type="date" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />

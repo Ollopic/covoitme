@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -7,26 +8,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
-        <header class="bg-white shadow">
-          <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="home.html" class="text-2xl font-bold text-blue-600">Covoitme</a>
-            <nav class="space-x-6 hidden md:flex">
-              <a href="home.html" class="text-gray-700 hover:text-blue-600">Accueil</a>
-              <a href="newPath.html" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
-              <a href="myPath.html" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
-              <a href="createdPath.html" class="text-gray-700 hover:text-blue-600">Mes trajets</a>
-            </nav>
-            <div class="flex items-center gap-4">
-                <a href="profile" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">
-                    <img class="w-12 h-12 rounded-full" src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="user photo">
-                </a>
-                <a href="#"
-                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0">
-                    Se déconnecter
-                </a>
-            </div>
-          </div>
-        </header>
+        <%@ include file="navbar.jsp" %>
         <div class="flex flex-col items-center text-xl">
             <svg width="600" height="600" viewBox="0 0 375 204" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M83.6211 67.2652C83.6211 67.2652 84.8136 65.8711 87.0728 63.6036" stroke="#CFDFE5" stroke-width="1.67964" stroke-linecap="round" stroke-linejoin="round"></path>

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -80,7 +81,7 @@
 
         <div class="text-center">
           <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Publier le trajet</button>
-          <button type="button" onclick="window.location.href='home.html'" class="bg-neutral-400 text-dark px-6 py-2 rounded hover:bg-neutral-500">Annuler la publication du trajet</button>
+          <button type="button" onclick="window.location.href='home.jsp'" class="bg-neutral-400 text-dark px-6 py-2 rounded hover:bg-neutral-500">Annuler la publication du trajet</button>
         </div>
       </form>
 
