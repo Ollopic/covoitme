@@ -1,30 +1,32 @@
 CREATE TABLE Utilisateur (
     id SERIAL PRIMARY KEY,
-    nom VARCHAR(100),
-    prenom VARCHAR(100),
-    email VARCHAR(150),
-    numTel VARCHAR(20),
     age INT,
+    email VARCHAR(150),
+    nom VARCHAR(100),
+    numTel VARCHAR(20),
     password VARCHAR(100),
+    prenom VARCHAR(100),
     profilePic BYTEA
 );
 
 CREATE TABLE Trajet (
     id SERIAL PRIMARY KEY,
-    lieuDestination VARCHAR(200),
-    dateDepart TIMESTAMP,
-    dateArrivee TIMESTAMP,
-    nbPlacesLibres INT,
-    lieuDepart VARCHAR(200),
+    adresseDepart VARCHAR(200),
+    adresseDestination VARCHAR(200),
     conducteur_id INT,
-    vehicule VARCHAR(100),
+    dateArrivee TIMESTAMP,
+    dateDepart TIMESTAMP,
     immatriculation VARCHAR(20),
+    nbPlacesLibres INT,
+    vehicule VARCHAR(100),
+    villeDepart VARCHAR(100),
+    villeDestination VARCHAR(100),
     FOREIGN KEY (conducteur_id) REFERENCES Utilisateur(id)
 );
 
 CREATE TABLE PassagerTrajet (
-    utilisateur_id INT,
     trajet_id INT,
+    utilisateur_id INT,
     PRIMARY KEY (utilisateur_id, trajet_id),
     FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id),
     FOREIGN KEY (trajet_id) REFERENCES Trajet(id)
