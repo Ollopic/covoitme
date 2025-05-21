@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100 font-sans">
-    <%@ include file="navbar.jsp" %>
     <div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
       <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Publier un trajet</h1>
 
@@ -82,7 +81,7 @@
 
         <div>
           <label for="tarif" class="block text-sm font-medium text-gray-700">Prix par passager (€)</label>
-          <input type="number" id="tarif" name="tarif" min="0" step="0.5" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="number" id="tarif" name="tarif" min="0" step="0.01" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div>
@@ -107,5 +106,4 @@
       </script>
     </div>
   </body>
-  <%@ include file="footer.jsp" %>
 </html>
