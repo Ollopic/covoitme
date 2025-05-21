@@ -59,6 +59,28 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
+            <plugin>
+                <groupId>com.hubspot.maven.plugins</groupId>
+                <artifactId>prettier-maven-plugin</artifactId>
+                <version>0.22</version> <!-- Vérifie la dernière version disponible -->
+                <configuration>
+                    <prettierJavaVersion>2.6.6</prettierJavaVersion> <!-- Version du plugin prettier-java -->
+                    <printWidth>110</printWidth> <!-- Largeur maximale des lignes -->
+                    <tabWidth>2</tabWidth> <!-- Largeur des tabulations -->
+                    <useTabs>false</useTabs>
+                    <ignoreConfigFile>true</ignoreConfigFile>
+                    <ignoreEditorConfig>true</ignoreEditorConfig>
+                </configuration>
+                <executions>
+                    <execution>
+                    <phase>validate</phase>
+                    <goals>
+                        <goal>write</goal> <!-- Pour formater automatiquement le code -->
+                    </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>
