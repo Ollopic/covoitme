@@ -4,7 +4,6 @@ import com.mycompany.covoitme.resources.DatabaseConnection;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -44,14 +43,12 @@ public class ServletNewPath extends HttpServlet {
           Float tarif = Float.parseFloat(request.getParameter("tarif"));
           String commentaire = request.getParameter("commentaire");
 
-          // Traitement du nombre de places
           int nbPlaces = 1; // Valeur par défaut
           if (nbPlacesStr != null) {
               // Extraction du nombre depuis la chaîne "X passagers"
               nbPlaces = Integer.parseInt(nbPlacesStr.split(" ")[0]);
           }
 
-          // Conversion des dates
           LocalDate date = LocalDate.parse(dateStr);
           LocalTime timeDepart = LocalTime.parse(heureDepart);
           LocalTime timeArrivee = LocalTime.parse(heureArrivee);

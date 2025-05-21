@@ -58,8 +58,13 @@ public class ServletLogin extends HttpServlet {
                         session.setAttribute("numTel", resultSet.getString("numTel"));
                         session.setAttribute("age", resultSet.getInt("age"));
 
-                        response.sendRedirect(request.getContextPath() + "/home");
-                        return;
+                        String redirectURL = (String) session.getAttribute("redirectAfterLogin");
+                        if (redirectURL != null) {
+                            session.removeAttribute("redirectAfterLogin");
+                            response.sendRedirect(redirectURL);
+                        } else {
+                            response.sendRedirect(request.getContextPath() + "/home");
+                        }
                 } else {
                     errorMessage = "Email ou mot de passe incorrect";
                 }
