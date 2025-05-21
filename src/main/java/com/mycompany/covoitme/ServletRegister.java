@@ -75,8 +75,8 @@ public class ServletRegister extends HttpServlet {
             insertQuery,
             PreparedStatement.RETURN_GENERATED_KEYS
           );
-          insertStmt.setString(1, prenom);
-          insertStmt.setString(2, nom);
+          insertStmt.setString(1, nom);
+          insertStmt.setString(2, prenom);
           insertStmt.setString(3, email);
           insertStmt.setString(4, telephone);
           insertStmt.setInt(5, age);
