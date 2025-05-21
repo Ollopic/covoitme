@@ -80,8 +80,11 @@ public class ServletRegister extends HttpServlet {
                     if (rowsInserted > 0) {
                         HttpSession session = request.getSession();
                         session.setAttribute("loggedIn", true);
-                        session.setAttribute("email", email);
                         session.setAttribute("prenom", prenom);
+                        session.setAttribute("nom", nom);
+                        session.setAttribute("email", email);
+                        session.setAttribute("numTel", telephone);
+                        session.setAttribute("age", age);
 
                         response.sendRedirect(request.getContextPath() + "/home");
                         return;
