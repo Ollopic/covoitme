@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.*, java.text.*" %>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -10,6 +12,206 @@
     <body>
     <%@ include file="navbar.jsp" %>
     <div class="flex flex-col items-center text-xl">
+        <%
+            List<Map<String, Object>> trajets = (List<Map<String, Object>>) request.getAttribute("trajets");
+            List<Map<String, Object>> trajetsExpired = (List<Map<String, Object>>) request.getAttribute("trajetsExpired");
+
+            if ((trajets != null && !trajets.isEmpty()) || (trajetsExpired != null && !trajetsExpired.isEmpty())) {
+        %>
+        <main class="container flex flex-col mx-auto px-4 py-8">
+            <h1 class="text-2xl font-bold mb-8">Mes trajets</h1>
+
+            <% if (trajets != null && !trajets.isEmpty()) { %>
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">Trajets à venir</h2>
+                <div class="space-y-4">
+                <%
+                        for (Map<String, Object> trajet : trajets) {
+                %>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex flex-col md:flex-row justify-between">
+                                <div class="flex-1">
+                                    <div class="text-lg font-semibold text-blue-600 mb-2">
+                                        <%= trajet.get("datedepart") %>
+                                    </div>
+
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex flex-col items-center">
+                                            <div class="font-semibold text-gray-900">
+                                                <%= trajet.get("heuredepart") %>
+                                            </div>
+                                            <div class="w-0.5 h-12 bg-blue-600 my-1"></div>
+                                            <div class="font-semibold text-gray-900">
+                                                <%= trajet.get("heurearrivee") %>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex-1">
+                                            <div class="mb-2">
+                                                <div class="font-medium">
+                                                    <%= trajet.get("villedepart") %>
+                                                </div>
+                                                <div class="text-sm text-gray-500">
+                                                    <%= trajet.get("adressedepart") %>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium">
+                                                    <%= trajet.get("villedestination") %>
+                                                </div>
+                                                <div class="text-sm text-gray-500">
+                                                    <%= trajet.get("adressedestination") %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <% if (!trajet.get("datearrivee").equals(trajet.get("datedepart"))) { %>
+                                        <div class="text-lg font-semibold text-blue-600 mt-2">
+                                            <%= trajet.get("datearrivee") %>
+                                        </div>
+                                    <% } %>
+
+                                    <div class="mt-3 flex flex-wrap gap-3">
+                                        <div class="text-sm bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
+                                            <i class="fas fa-chair mr-1"></i> <%= trajet.get("nbplaceslibres") %> places disponibles
+                                        </div>
+                                        <div class="text-sm bg-green-50 text-green-700 px-2 py-1 rounded-full">
+                                            <i class="fas fa-euro-sign mr-1"></i> <%= trajet.get("tarif") %> € / personne
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 text-sm text-gray-600">
+                                        <i class="fas fa-car mr-1"></i> <%= trajet.get("vehicule").toString().toUpperCase() %> - Immatriculation <%= trajet.get("immatriculation") %>
+                                    </div>
+
+                                    <%
+                                        if (trajet.get("commentaire") != null) {
+                                    %>
+                                    <div class="mt-3 text-sm text-gray-600">
+                                        <i class="fas fa-comment mr-1"></i> <span class="italic"><%= trajet.get("commentaire") %></span>
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+                                </div>
+
+                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="text-sm text-gray-500">
+                                            Passagers confirmés: <%= trajet.get("passagers_confirmes") %>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col space-y-2 mt-4">
+                                        <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
+                                            <i class="fas fa-history mr-1"></i> Détails
+                                        </a>
+                                        <a href="#" class="border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50 transition text-center text-sm">
+                                            <i class="fas fa-trash-alt mr-1"></i> Annuler
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <%
+                    }
+                %>
+                </div>
+            </div>
+            <% } %>
+
+            <% if (trajetsExpired != null && !trajetsExpired.isEmpty()) { %>
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Trajets passés</h2>
+
+                <div class="space-y-4">
+                    <%
+                        for (Map<String, Object> trajetExpired : trajetsExpired) {
+                    %>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden opacity-75">
+                        <div class="p-4">
+                            <div class="flex flex-col md:flex-row justify-between">
+                                <div class="flex-1">
+                                    <div class="text-lg font-semibold text-blue-600 mb-2"><%= trajetExpired.get("datedepart") %></div>
+
+                                    <div class="flex items-start gap-3">
+                                        <div class="flex flex-col items-center">
+                                            <div class="font-semibold text-gray-900"><%= trajetExpired.get("heuredepart") %></div>
+                                            <div class="w-0.5 h-12 bg-gray-300 my-1"></div>
+                                            <div class="font-semibold text-gray-900"><%= trajetExpired.get("heurearrivee") %></div>
+                                        </div>
+
+                                        <div class="flex-1">
+                                            <div class="mb-2">
+                                                <div class="font-medium"><%= trajetExpired.get("villedepart") %></div>
+                                                <div class="text-sm text-gray-500"><%= trajetExpired.get("adressedepart") %></div>
+                                            </div>
+                                            <div>
+                                                <div class="font-medium"><%= trajetExpired.get("villedestination") %></div>
+                                                <div class="text-sm text-gray-500"><%= trajetExpired.get("adressedestination") %></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <% if (!trajetExpired.get("datearrivee").equals(trajetExpired.get("datedepart"))) { %>
+                                    <div class="text-lg font-semibold text-blue-600 mt-2">
+                                        <%= trajetExpired.get("datearrivee") %>
+                                    </div>
+                                    <% } %>
+
+                                    <div class="mt-3 flex flex-wrap gap-3">
+                                        <div class="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                                            <i class="fas fa-check-circle mr-1"></i> Terminé
+                                        </div>
+                                        <div class="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                                            <i class="fas fa-euro-sign mr-1"></i> <%= trajetExpired.get("tarif") %> € / personne
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3 text-sm text-gray-600">
+                                        <i class="fas fa-car mr-1"></i> <%= trajetExpired.get("vehicule").toString().toUpperCase() %> - Immatriculation <%= trajetExpired.get("immatriculation") %>
+                                    </div>
+
+                                    <%
+                                        if (trajetExpired.get("commentaire") != null) {
+                                    %>
+                                    <div class="mt-3 text-sm text-gray-600">
+                                        <i class="fas fa-comment mr-1"></i> <span class="italic"><%= trajetExpired.get("commentaire") %></span>
+                                    </div>
+                                    <%
+                                        }
+                                    %>
+                                </div>
+
+                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
+                                    <div class="flex flex-col space-y-2">
+                                        <div class="text-sm text-gray-500">Passagers: 3/3</div>
+                                        <div class="inline-flex items-center text-sm text-gray-600">
+                                            <i class="fas fa-user mr-1"></i> Alexandre, Marie, Laurent
+                                        </div>
+                                    </div>
+
+                                    <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
+                                        <i class="fas fa-history mr-1"></i> Détails
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+            </div>
+            <% } %>
+        </main>
+        <%
+            } else {
+        %>
         <svg width="600" height="600" viewBox="0 0 375 204" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M83.6211 67.2652C83.6211 67.2652 84.8136 65.8711 87.0728 63.6036" stroke="#CFDFE5" stroke-width="1.67964" stroke-linecap="round" stroke-linejoin="round"></path>
             <path d="M94.438 56.8346C109.185 44.3129 137.815 25.5765 173.003 30.3802C224.787 37.4767 226.391 90.4611 196.518 82.4492C166.646 74.4373 165.201 14.0625 224.787 25.4169C266.593 33.3784 275.579 58.1027 277.217 72.153" stroke="#CFDFE5" stroke-width="1.67964" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 10"></path>
@@ -64,318 +266,9 @@
             <path d="M198.878 120.166L158.659 126.38L126.612 119.183M164.219 102.832L152.444 155.48L164.219 102.832Z" stroke="#CFDFE5" stroke-width="0.839822" stroke-miterlimit="10"></path>
         </svg>
         <h1><span>Vos trajets créés apparaîtront ici.</span></h1>
-
-        <main class="container mx-auto px-4 py-8">
-            <h1 class="text-2xl font-bold mb-8">Mes trajets</h1>
-
-            <div class="mb-8">
-                <h2 class="text-xl font-semibold mb-4">Trajets à venir</h2>
-
-                <div class="space-y-4">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="p-4">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div class="flex-1">
-                                    <div class="text-lg font-semibold text-blue-600 mb-2">Mardi 20 mai</div>
-
-                                    <div class="flex items-start gap-3">
-                                        <div class="flex flex-col items-center">
-                                            <div class="font-semibold text-gray-900">15:00</div>
-                                            <div class="w-0.5 h-12 bg-blue-600 my-1"></div>
-                                            <div class="font-semibold text-gray-900">16:40</div>
-                                        </div>
-
-                                        <div class="flex-1">
-                                            <div class="mb-2">
-                                                <div class="font-medium">Le Bourget</div>
-                                                <div class="text-sm text-gray-500">7/9 Av. du 8 Mai 1945</div>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Reims</div>
-                                                <div class="text-sm text-gray-500">4 Pl. Martyrs de la Résistance</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 flex flex-wrap gap-3">
-                                        <div class="text-sm bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-chair mr-1"></i> 2 places disponibles
-                                        </div>
-                                        <div class="text-sm bg-green-50 text-green-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-euro-sign mr-1"></i> 20,79 €
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 text-sm text-gray-600">
-                                        <i class="fas fa-car mr-1"></i> RENAULT GRAND SCENIC - Noir
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="text-sm text-gray-500">Passagers confirmés: 1/3</div>
-                                        <div class="inline-flex items-center text-sm text-green-600">
-                                            <i class="fas fa-user-check mr-1"></i> Mamadou
-                                        </div>
-                                    </div>
-
-                                    <div class="flex flex-col space-y-2 mt-4">
-                                        <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
-                                            <i class="fas fa-history mr-1"></i> Détails
-                                        </a>
-                                        <a href="#" class="border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50 transition text-center text-sm">
-                                            <i class="fas fa-trash-alt mr-1"></i> Annuler
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="p-4">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div class="flex-1">
-                                    <div class="text-lg font-semibold text-blue-600 mb-2">Vendredi 23 mai</div>
-
-                                    <div class="flex items-start gap-3">
-                                        <div class="flex flex-col items-center">
-                                            <div class="font-semibold text-gray-900">08:30</div>
-                                            <div class="w-0.5 h-12 bg-blue-600 my-1"></div>
-                                            <div class="font-semibold text-gray-900">10:15</div>
-                                        </div>
-
-                                        <div class="flex-1">
-                                            <div class="mb-2">
-                                                <div class="font-medium">Reims</div>
-                                                <div class="text-sm text-gray-500">4 Pl. Martyrs de la Résistance</div>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Paris</div>
-                                                <div class="text-sm text-gray-500">Gare de l'Est</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 flex flex-wrap gap-3">
-                                        <div class="text-sm bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-chair mr-1"></i> 3 places disponibles
-                                        </div>
-                                        <div class="text-sm bg-green-50 text-green-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-euro-sign mr-1"></i> 18,50 €
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 text-sm text-gray-600">
-                                        <i class="fas fa-car mr-1"></i> RENAULT GRAND SCENIC - Noir
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="text-sm text-gray-500">Passagers confirmés: 0/3</div>
-                                        <div class="inline-flex items-center text-sm text-gray-600">
-                                            <i class="fas fa-user-clock mr-1"></i> Aucun passager pour l'instant
-                                        </div>
-                                    </div>
-
-                                    <div class="flex flex-col space-y-2 mt-4">
-                                        <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
-                                            <i class="fas fa-history mr-1"></i> Détails
-                                        </a>
-                                        <a href="#" class="border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50 transition text-center text-sm">
-                                            <i class="fas fa-trash-alt mr-1"></i> Annuler
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="p-4">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div class="flex-1">
-                                    <div class="text-lg font-semibold text-blue-600 mb-2">Dimanche 25 mai</div>
-
-                                    <div class="flex items-start gap-3">
-                                        <div class="flex flex-col items-center">
-                                            <div class="font-semibold text-gray-900">19:00</div>
-                                            <div class="w-0.5 h-12 bg-blue-600 my-1"></div>
-                                            <div class="font-semibold text-gray-900">20:40</div>
-                                        </div>
-
-                                        <div class="flex-1">
-                                            <div class="mb-2">
-                                                <div class="font-medium">Paris</div>
-                                                <div class="text-sm text-gray-500">Porte de Pantin</div>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Reims</div>
-                                                <div class="text-sm text-gray-500">Cathédrale de Reims</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 flex flex-wrap gap-3">
-                                        <div class="text-sm bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-chair mr-1"></i> 1 place disponible
-                                        </div>
-                                        <div class="text-sm bg-green-50 text-green-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-euro-sign mr-1"></i> 22,00 €
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 text-sm text-gray-600">
-                                        <i class="fas fa-car mr-1"></i> RENAULT GRAND SCENIC - Noir
-                                    </div>
-
-                                    <div class="mt-3 text-sm text-gray-600">
-                                        <i class="fas fa-comment mr-1"></i> <span class="italic">Retour du concert, possibilité de partir plus tard selon l'heure de fin.</span>
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="text-sm text-gray-500">Passagers confirmés: 2/3</div>
-                                        <div class="inline-flex items-center text-sm text-green-600">
-                                            <i class="fas fa-user-check mr-1"></i> Sophie, Julien
-                                        </div>
-                                    </div>
-
-                                    <div class="flex flex-col space-y-2 mt-4">
-                                        <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
-                                            <i class="fas fa-history mr-1"></i> Détails
-                                        </a>
-                                        <a href="#" class="border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50 transition text-center text-sm">
-                                            <i class="fas fa-trash-alt mr-1"></i> Annuler
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <h2 class="text-xl font-semibold mb-4">Trajets passés</h2>
-
-                <div class="space-y-4">
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden opacity-75">
-                        <div class="p-4">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div class="flex-1">
-                                    <div class="text-lg font-semibold text-blue-600 mb-2">Lundi 12 mai</div>
-
-                                    <div class="flex items-start gap-3">
-                                        <div class="flex flex-col items-center">
-                                            <div class="font-semibold text-gray-900">07:30</div>
-                                            <div class="w-0.5 h-12 bg-gray-300 my-1"></div>
-                                            <div class="font-semibold text-gray-900">09:15</div>
-                                        </div>
-
-                                        <div class="flex-1">
-                                            <div class="mb-2">
-                                                <div class="font-medium">Reims</div>
-                                                <div class="text-sm text-gray-500">4 Pl. Martyrs de la Résistance</div>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Paris</div>
-                                                <div class="text-sm text-gray-500">La Défense</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 flex flex-wrap gap-3">
-                                        <div class="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-check-circle mr-1"></i> Terminé
-                                        </div>
-                                        <div class="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-euro-sign mr-1"></i> 19,50 €
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 text-sm text-gray-600">
-                                        <i class="fas fa-car mr-1"></i> RENAULT GRAND SCENIC - Noir
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="text-sm text-gray-500">Passagers: 3/3</div>
-                                        <div class="inline-flex items-center text-sm text-gray-600">
-                                            <i class="fas fa-user mr-1"></i> Alexandre, Marie, Laurent
-                                        </div>
-                                    </div>
-
-                                    <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
-                                        <i class="fas fa-history mr-1"></i> Détails
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden opacity-75">
-                        <div class="p-4">
-                            <div class="flex flex-col md:flex-row justify-between">
-                                <div class="flex-1">
-                                    <div class="text-lg font-semibold text-blue-600 mb-2">Mercredi 7 mai</div>
-
-                                    <div class="flex items-start gap-3">
-                                        <div class="flex flex-col items-center">
-                                            <div class="font-semibold text-gray-900">17:00</div>
-                                            <div class="w-0.5 h-12 bg-gray-300 my-1"></div>
-                                            <div class="font-semibold text-gray-900">18:40</div>
-                                        </div>
-
-                                        <div class="flex-1">
-                                            <div class="mb-2">
-                                                <div class="font-medium">Le Bourget</div>
-                                                <div class="text-sm text-gray-500">7/9 Av. du 8 Mai 1945</div>
-                                            </div>
-                                            <div>
-                                                <div class="font-medium">Reims</div>
-                                                <div class="text-sm text-gray-500">4 Pl. Martyrs de la Résistance</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 flex flex-wrap gap-3">
-                                        <div class="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-check-circle mr-1"></i> Terminé
-                                        </div>
-                                        <div class="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-euro-sign mr-1"></i> 20,79 €
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3 text-sm text-gray-600">
-                                        <i class="fas fa-car mr-1"></i> RENAULT GRAND SCENIC - Noir
-                                    </div>
-                                </div>
-
-                                <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="text-sm text-gray-500">Passagers: 2/3</div>
-                                        <div class="inline-flex items-center text-sm text-gray-600">
-                                            <i class="fas fa-user mr-1"></i> Mamadou, Claire
-                                        </div>
-                                    </div>
-
-                                    <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
-                                        <i class="fas fa-history mr-1"></i> Détails
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+        <%
+            }
+        %>
     </div>
-    <%@ include file="footer.jsp" %>
-
     </body>
 </html>
