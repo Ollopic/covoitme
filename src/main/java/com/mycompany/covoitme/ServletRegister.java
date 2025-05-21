@@ -67,7 +67,7 @@ public class ServletRegister extends HttpServlet {
                     errorMessage = "Cette adresse email est déjà utilisée";
                 } else {
                     String insertQuery = "INSERT INTO utilisateur (nom, prenom, email, numTel, age, password) VALUES (?, ?, ?, ?, ?, ?)";
-                    PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
+                    PreparedStatement insertStmt = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS);
                     insertStmt.setString(1, prenom);
                     insertStmt.setString(2, nom);
                     insertStmt.setString(3, email);
@@ -78,8 +78,15 @@ public class ServletRegister extends HttpServlet {
                     int rowsInserted = insertStmt.executeUpdate();
 
                     if (rowsInserted > 0) {
+                        ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+                        int userId = -1;
+                        if (generatedKeys.next()) {
+                            userId = generatedKeys.getInt(1);
+                        }
+
                         HttpSession session = request.getSession();
                         session.setAttribute("loggedIn", true);
+                        session.setAttribute("userId", userId);
                         session.setAttribute("prenom", prenom);
                         session.setAttribute("nom", nom);
                         session.setAttribute("email", email);

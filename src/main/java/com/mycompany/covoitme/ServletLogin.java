@@ -40,7 +40,7 @@ public class ServletLogin extends HttpServlet {
             Connection connection = null;
             try {
                 connection = DatabaseConnection.getConnection();
-                String query = "SELECT prenom, nom, password, numTel, age FROM utilisateur WHERE email = ?";
+                String query = "SELECT id, prenom, nom, password, numTel, age FROM utilisateur WHERE email = ?";
                 PreparedStatement stmt = connection.prepareStatement(query);
                 stmt.setString(1, email);
 
@@ -51,6 +51,7 @@ public class ServletLogin extends HttpServlet {
                     if (BCrypt.checkpw(motDePasse, hashStocke)) {
                         HttpSession session = request.getSession();
                         session.setAttribute("loggedIn", true);
+                        session.setAttribute("userId", resultSet.getInt("id"));
                         session.setAttribute("prenom", resultSet.getString("prenom"));
                         session.setAttribute("nom", resultSet.getString("nom"));
                         session.setAttribute("email", email);
