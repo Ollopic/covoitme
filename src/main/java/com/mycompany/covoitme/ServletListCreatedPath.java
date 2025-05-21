@@ -17,7 +17,7 @@ import java.util.Date;
  *
  * @author liritt
  */
-@WebServlet(name = "ServletListCreatedPath", urlPatterns = { "/createdPath" })
+@WebServlet(name = "ServletListCreatedPath", urlPatterns = { "/createdpath" })
 public class ServletListCreatedPath extends HttpServlet {
   /**
    * Handles the HTTP <code>GET</code> method.
