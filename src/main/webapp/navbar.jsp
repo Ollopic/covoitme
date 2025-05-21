@@ -3,8 +3,8 @@
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
     <a href="home.jsp" class="text-2xl font-bold text-blue-600">Covoitme</a>
     <nav class="space-x-6 hidden md:flex">
-      <a href="home.jsp" class="text-gray-700 hover:text-blue-600">Accueil</a>
-      <a href="newPath.jsp" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
+      <a href="home" class="text-gray-700 hover:text-blue-600">Accueil</a>
+      <a href="newpath" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
       <a href="myPath.jsp" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
       <a href="createdPath.jsp" class="text-gray-700 hover:text-blue-600">Mes trajets</a>
     </nav>

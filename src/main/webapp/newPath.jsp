@@ -11,25 +11,35 @@
     <%@ include file="navbar.jsp" %>
     <div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
       <h1 class="text-2xl font-bold mb-6 text-center text-blue-600">Publier un trajet</h1>
-      <form action="/trajets" method="POST" class="space-y-4">
+
+        <% if (request.getParameter("error") != null && request.getParameter("error").equals("true")) { %>
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <strong class="font-bold">Erreur !</strong>
+            <span class="block sm:inline"> Une erreur est survenue lors de la création du trajet. Veuillez réessayer.</span>
+            <%= session.getAttribute("errorMessage") != null ? session.getAttribute("errorMessage") : "Une erreur est survenue lors de la création du trajet." %>
+            <% session.removeAttribute("errorMessage"); %>
+          </div>
+        <% } %>
+
+        <form action="${pageContext.request.contextPath}/newpath" method="POST" class="space-y-4">
         <div>
-          <label for="depart" class="block text-sm font-medium text-gray-700">Ville de départ</label>
-          <input type="text" placeholder="Reims..." id="depart" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label for="villeDepart" class="block text-sm font-medium text-gray-700">Ville de départ</label>
+          <input type="text" placeholder="Reims..." id="villeDepart" name="villeDepart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div>
-          <label for="destination" class="block text-sm font-medium text-gray-700">Ville d'arrivée</label>
-          <input type="text" id="destination" placeholder="Paris..." name="destination" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label for="villeDestination" class="block text-sm font-medium text-gray-700">Ville d'arrivée</label>
+          <input type="text" id="villeDestination" placeholder="Paris..." name="villeDestination" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="rdv-address" class="block text-sm font-medium text-gray-700">Adresse exacte du rendez-vous</label>
-            <input placeholder="2 Av. Robert Schuman..." type="text" id="rdv-address" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label for="adresseDepart" class="block text-sm font-medium text-gray-700">Adresse exacte du rendez-vous</label>
+            <input placeholder="2 Av. Robert Schuman..." type="text" id="adresseDepart" name="adresseDepart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <div>
-            <label for="finish-address" class="block text-sm font-medium text-gray-700">Adresse exacte de l'arrivée</label>
-            <input placeholder="24 Rue du Commandant Guilbaud..." type="text" id="finish-address" name="depart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label for="adresseDestination" class="block text-sm font-medium text-gray-700">Adresse exacte de l'arrivée</label>
+            <input placeholder="24 Rue du Commandant Guilbaud..." type="text" id="adresseDestination" name="adresseDestination" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
         </div>
 
@@ -71,8 +81,8 @@
         </div>
 
         <div>
-          <label for="prix" class="block text-sm font-medium text-gray-700">Prix par passager (€)</label>
-          <input type="number" id="prix" name="prix" min="0" step="0.5" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label for="tarif" class="block text-sm font-medium text-gray-700">Prix par passager (€)</label>
+          <input type="number" id="tarif" name="tarif" min="0" step="0.5" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <div>
