@@ -69,7 +69,6 @@ public class ServletLogin extends HttpServlet {
           errorMessage = "Email ou mot de passe incorrect";
         }
       } catch (SQLException | ClassNotFoundException e) {
-        errorMessage = "Erreur de base de données: " + e.getMessage();
         e.printStackTrace();
       } finally {
         DatabaseConnection.closeConnection(connection);
@@ -77,7 +76,6 @@ public class ServletLogin extends HttpServlet {
     }
 
     if (errorMessage != null) {
-      request.setAttribute("errorMessage", errorMessage);
       request.setAttribute("email", email);
       request.getRequestDispatcher("/login.jsp").forward(request, response);
     }

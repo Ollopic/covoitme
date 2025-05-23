@@ -8,25 +8,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Date;
 
-/**
- *
- * @author liritt
- */
 @WebServlet(name = "ServletListPath", urlPatterns = { "/listpath" })
 public class ServletListPath extends HttpServlet {
 
-  /**
-   * Calcule la durée entre deux timestamps
-   * @param dateDepart timestamp de départ
-   * @param dateArrivee timestamp d'arrivée
-   * @return durée formatée (ex: "2h 30min" ou "1j 3h 15min")
-   */
   private String calculerDuree(Timestamp dateDepart, Timestamp dateArrivee) {
     long diffEnMillis = dateArrivee.getTime() - dateDepart.getTime();
 
@@ -57,14 +45,6 @@ public class ServletListPath extends HttpServlet {
     return duree.toString().trim();
   }
 
-  /**
-   * Handles the HTTP <code>GET</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -177,11 +157,6 @@ public class ServletListPath extends HttpServlet {
     request.getRequestDispatcher("/listPath.jsp").forward(request, response);
   }
 
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
   @Override
   public String getServletInfo() {
     return "Returns the list of paths, with filters applied";

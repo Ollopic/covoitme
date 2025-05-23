@@ -18,12 +18,6 @@
       <button id="showRegister" class="text-gray-500 font-semibold">Inscription</button>
     </div>
 
-    <% if (request.getAttribute("errorMessage") != null) { %>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-      <%= request.getAttribute("errorMessage") %>
-    </div>
-    <% } %>
-
     <form id="loginForm" class="space-y-4" action="${pageContext.request.contextPath}/login" method="post">
       <h2 class="text-xl font-bold text-center mb-4">Connexion</h2>
       <input type="email" name="email" placeholder="Email" required class="w-full p-2 border rounded" 
