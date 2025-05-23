@@ -19,6 +19,7 @@ import java.util.Date;
  */
 @WebServlet(name = "ServletListCreatedPath", urlPatterns = { "/createdpath" })
 public class ServletListCreatedPath extends HttpServlet {
+
   /**
    * Handles the HTTP <code>GET</code> method.
    *
@@ -45,7 +46,7 @@ public class ServletListCreatedPath extends HttpServlet {
 
       ResultSet resultSet = stmt.executeQuery();
 
-      SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM", Locale.FRENCH);
+      SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE d MMMM yyyy", Locale.FRENCH);
       SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
       while (resultSet.next()) {
