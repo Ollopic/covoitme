@@ -38,7 +38,7 @@
 </section>
 
 <section class="container mx-auto px-4 py-6">
-    <h2 class="text-xl font-semibold mb-4"><%= trajets.size() %> trajet(s) trouvés de Paris à Reims</h2>
+    <h2 class="text-xl font-semibold mb-4"><%= trajets.size() %> trajet(s) trouvés de <%= request.getParameter("start") %> à <%= request.getParameter("destination") %></h2>
 
     <div class="space-y-4">
         <%
@@ -83,7 +83,7 @@
                             <div class="mr-4">
                                 <span class="text-2xl font-bold"><%= trajet.get("tarif") %> € / passagers</span>
                             </div>
-                            <a href="pathDetail.jsp" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Réserver</a>
+                            <a href="pathDetail" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Réserver</a>
                         </div>
                     </div>
                 </div>
