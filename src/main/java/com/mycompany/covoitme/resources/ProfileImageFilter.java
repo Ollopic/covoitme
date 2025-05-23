@@ -1,6 +1,5 @@
-package com.mycompany.covoitme;
+package com.mycompany.covoitme.resources;
 
-import com.mycompany.covoitme.resources.DatabaseConnection;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;

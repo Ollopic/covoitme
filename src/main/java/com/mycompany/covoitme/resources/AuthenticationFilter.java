@@ -1,4 +1,4 @@
-package com.mycompany.covoitme;
+package com.mycompany.covoitme.resources;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
