@@ -98,9 +98,48 @@ public class ServletMyPathDetail extends HttpServlet {
       request.getRequestDispatcher("/myPathDetail.jsp").forward(request, response);
     } catch (SQLException | ClassNotFoundException e) {
       e.printStackTrace();
-      response.sendRedirect(request.getContextPath() + "/createdpath?error=true");
+      response.sendRedirect(request.getContextPath() + "/createdpath");
     } finally {
       DatabaseConnection.closeConnection(connection);
+    }
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String action = request.getParameter("action");
+
+    if ("delete".equals(action)) {
+      String trajetIdStr = request.getParameter("trajet_id");
+
+      try {
+        int trajetId = Integer.parseInt(trajetIdStr);
+        Connection connection = null;
+
+        try {
+          connection = DatabaseConnection.getConnection();
+
+          String deletePassagerQuery = "DELETE FROM passagertrajet WHERE trajet_id = ?";
+          PreparedStatement stmtDeletePassager = connection.prepareStatement(deletePassagerQuery);
+          stmtDeletePassager.setInt(1, trajetId);
+          stmtDeletePassager.executeUpdate();
+
+          String deleteTrajetQuery = "DELETE FROM trajet WHERE id = ?";
+          PreparedStatement stmtDeleteTrajet = connection.prepareStatement(deleteTrajetQuery);
+          stmtDeleteTrajet.setInt(1, trajetId);
+          stmtDeleteTrajet.executeUpdate();
+
+          response.sendRedirect(request.getContextPath() + "/createdpath");
+          return;
+        } catch (SQLException | ClassNotFoundException e) {
+          e.printStackTrace();
+          response.sendRedirect(request.getContextPath() + "/mypathdetail?id=" + trajetId);
+        } finally {
+          DatabaseConnection.closeConnection(connection);
+        }
+      } catch (NumberFormatException e) {
+        response.sendRedirect(request.getContextPath() + "/createdpath");
+      }
     }
   }
 }

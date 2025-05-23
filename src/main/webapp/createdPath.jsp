@@ -108,9 +108,6 @@
                                         <a href="${pageContext.request.contextPath}/mypathdetail?id=<%= trajet.get("id") %>" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
                                             <i class="fas fa-history mr-1"></i> Détails
                                         </a>
-                                        <a href="#" class="border border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-50 transition text-center text-sm">
-                                            <i class="fas fa-trash-alt mr-1"></i> Annuler
-                                        </a>
                                     </div>
                                 </div>
                             </div>

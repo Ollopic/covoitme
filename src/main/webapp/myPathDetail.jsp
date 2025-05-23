@@ -113,6 +113,16 @@
                     </div>
                 <% } %>
             </div>
+            
+            <div class="p-6 border-t border-gray-200">
+                <form method="post" action="mypathdetail" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler ce trajet ? Cette action est irréversible.');">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
+                    <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <i class="fas fa-times-circle mr-2"></i> Annuler ce trajet
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
