@@ -192,7 +192,7 @@
                                         </div>
                                     </div>
 
-                                    <a href="#" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
+                                    <a href="${pageContext.request.contextPath}/mypathdetail?id=<%= trajetExpired.get("id") %>" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
                                         <i class="fas fa-history mr-1"></i> Détails
                                     </a>
                                 </div>
