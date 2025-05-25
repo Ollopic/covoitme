@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="java.util.List" %>
 <%
     Map<String, Object> trajet = (Map<String, Object>) request.getAttribute("trajet");
     Map<String, Object> conducteur = (Map<String, Object>) request.getAttribute("conducteur");
+    List<Map<String, Object>> passagers = (List<Map<String, Object>>) request.getAttribute("passagers");
     if (trajet == null) {
         response.sendRedirect("createdpath?error=true");
         return;
@@ -95,6 +97,29 @@
                 </ul>
             </div>
         </div>
+
+        <% if (passagers != null && !passagers.isEmpty()) { %>
+            <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold mb-6">Passagers</h2>
+
+                    <div class="space-y-4">
+                        <% for (Map<String, Object> passager : passagers) { %>
+                            <div class="flex justify-between items-center pb-4 border-b border-gray-100 last:border-0">
+                                <div class="flex items-center">
+                                    <div class="h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Passager" class="h-full w-full object-cover" />
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-lg"><%= passager.get("prenom") %> <%= passager.get("nom") %></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
 
         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
             <div class="p-6">

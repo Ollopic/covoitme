@@ -13,7 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -80,6 +82,27 @@ public class ServletPathDetail extends HttpServlet {
         conducteur.put("email", resultSet.getString("email"));
         conducteur.put("numtel", resultSet.getString("numtel"));
       }
+
+      List<Map<String, Object>> passagers = new ArrayList<>();
+      String queryPassagers =
+        "SELECT u.id, u.nom, u.prenom " +
+        "FROM passagertrajet pt " +
+        "JOIN utilisateur u ON pt.utilisateur_id = u.id " +
+        "WHERE pt.trajet_id = ?";
+
+      PreparedStatement stmtPassagers = connection.prepareStatement(queryPassagers);
+      stmtPassagers.setInt(1, trajetId);
+      ResultSet resultSetPassagers = stmtPassagers.executeQuery();
+
+      while (resultSetPassagers.next()) {
+        Map<String, Object> passager = new HashMap<>();
+        passager.put("id", resultSetPassagers.getInt("id"));
+        passager.put("nom", resultSetPassagers.getString("nom"));
+        passager.put("prenom", resultSetPassagers.getString("prenom"));
+        passagers.add(passager);
+      }
+
+      request.setAttribute("passagers", passagers);
 
       request.setAttribute("trajet", trajet);
       request.setAttribute("conducteur", conducteur);
