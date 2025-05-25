@@ -1,4 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.util.Map" %>
+<%
+    Map<String, Object> trajet = (Map<String, Object>) request.getAttribute("trajet");
+    Map<String, Object> conducteur = (Map<String, Object>) request.getAttribute("conducteur");
+    if (trajet == null) {
+        response.sendRedirect("createdpath?error=true");
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,35 +21,35 @@
     <%@ include file="navbar.jsp" %>
 
     <div class="container mx-auto px-4 py-6">
-        <h1 class="text-3xl font-bold text-teal-800 mb-6">Mardi 20 mai</h1>
+        <h1 class="text-3xl font-bold text-teal-800 mb-6"><%= trajet.get("datedepart") %></h1>
 
         <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
             <div class="p-6 border-b border-gray-200">
                 <div class="flex items-start">
                     <div class="relative flex flex-col items-center mr-6">
                         <div class="text-left w-16">
-                            <div class="font-bold text-lg">15:00</div>
-                            <div class="text-sm text-gray-500">1h40</div>
+                            <div class="font-bold text-lg"><%= trajet.get("heuredepart") %></div>
+                            <div class="text-sm text-gray-500">Durée estimée</div>
                         </div>
                         <div class="h-24 w-0.5 bg-teal-600 my-2 ml-2"></div>
                         <div class="text-left w-16">
-                            <div class="font-bold text-lg">16:40</div>
+                            <div class="font-bold text-lg"><%= trajet.get("heurearrivee") %></div>
                         </div>
                     </div>
 
                     <div class="flex-1">
                         <div class="mb-6">
                             <div class="flex items-center mb-1">
-                                <span class="font-semibold text-lg">Le Bourget</span>
+                                <span class="font-semibold text-lg"><%= trajet.get("villedepart") %></span>
                             </div>
-                            <div class="text-gray-600">7/9 Av. du 8 Mai 1945</div>
+                            <div class="text-gray-600"><%= trajet.get("adressedepart") %></div>
                         </div>
                         <div class="h-16"></div>
                         <div class="mb-6">
                             <div class="flex items-center mb-1">
-                                <span class="font-semibold text-lg">Reims</span>
+                                <span class="font-semibold text-lg"><%= trajet.get("villedestination") %></span>
                             </div>
-                            <div class="text-gray-600">4 Pl. Martyrs de la Résistance</div>
+                            <div class="text-gray-600"><%= trajet.get("adressedestination") %></div>
                         </div>
                     </div>
                 </div>
@@ -50,17 +59,18 @@
                 <div class="flex justify-between items-center">
                     <div class="flex items-center">
                         <div class="h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Mohamed" class="h-full w-full object-cover" />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Conducteur" class="h-full w-full object-cover" />
                         </div>
                         <div>
-                            <div class="font-semibold text-xl">Mohamed</div>
-                            <div class="text-gray-600 text-sm">Conducteur</div>
+                            <div class="font-semibold text-xl">Conducteur</div>
+                            <div class="text-gray-600 text-sm">
+                                <% if (conducteur != null && conducteur.get("prenom") != null && conducteur.get("nom") != null) { %>
+                                    <%= conducteur.get("prenom") %> <%= conducteur.get("nom") %>
+                                <% } else { %>
+                                    Nom non spécifié
+                                <% } %>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <button class="text-gray-400 hover:text-gray-600">
-                            <i class="fas fa-chevron-right text-lg"></i>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -71,41 +81,18 @@
                         <div class="text-gray-500 mr-4 mt-1">
                             <i class="fas fa-users"></i>
                         </div>
-                        <span class="text-gray-700">3 places disponibles</span>
+                        <span class="text-gray-700"><%= trajet.get("nbplaceslibres") %> places disponibles</span>
                     </li>
                     <li class="flex items-start">
                         <div class="text-gray-500 mr-4 mt-1">
                             <i class="fas fa-car"></i>
                         </div>
-                        <span class="text-gray-700">RENAULT GRAND SCENIC - Noir</span>
+                        <span class="text-gray-700"><%= trajet.get("vehicule") %> - <%= trajet.get("immatriculation") %></span>
                     </li>
                     <li class="flex items-start">
-                        <span class="text-gray-700">Je préfère ne pas voyager en compagnie d'animaux. J'ai 29 ans, j'aime les chevaux et papoter !</span>
+                        <span class="text-gray-700"><%= trajet.get("commentaire") %></span>
                     </li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
-            <div class="p-6">
-                <h2 class="text-xl font-bold mb-6">Passagers</h2>
-
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <div class="h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md mr-4">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Mamadou" class="h-full w-full object-cover" />
-                        </div>
-                        <div>
-                            <div class="font-semibold text-lg">Mamadou</div>
-                            <div class="text-gray-600 text-sm">Le Bourget → Cathédrale de Reims</div>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="text-gray-400 hover:text-gray-600">
-                            <i class="fas fa-chevron-right text-lg"></i>
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -117,28 +104,28 @@
                             <i class="fas fa-car text-gray-700"></i>
                         </div>
                         <div>
-                            <div class="text-lg">Mardi 20 mai</div>
+                            <div class="text-lg"><%= trajet.get("datedepart") %></div>
                             <div class="flex items-center">
                                 <div class="flex flex-col items-center mr-3">
-                                    <span class="text-sm font-medium">15:00</span>
+                                    <span class="text-sm font-medium"><%= trajet.get("heuredepart") %></span>
                                     <div class="h-4 w-0.5 bg-gray-300 my-0.5"></div>
-                                    <span class="text-sm font-medium">16:40</span>
+                                    <span class="text-sm font-medium"><%= trajet.get("heurearrivee") %></span>
                                 </div>
                                 <div>
-                                    <div class="text-sm">Le Bourget</div>
-                                    <div class="text-sm">Reims</div>
+                                    <div class="text-sm"><%= trajet.get("villedepart") %></div>
+                                    <div class="text-sm"><%= trajet.get("villedestination") %></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="flex flex-col items-end">
-                        <div class="font-bold text-2xl">20<sup class="text-sm">,79</sup> €</div>
-                        <div class="text-gray-600">1 passager</div>
+                        <div class="font-bold text-2xl"><%= trajet.get("tarif") %> €</div>
+                        <div class="text-gray-600"><%= trajet.get("nbplaceslibres") %> passager(s)</div>
                     </div>
                 </div>
 
                 <div class="mt-8">
-                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-full flex items-center justify-center transition">
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
                         <i class="far fa-calendar-plus mr-2"></i>
                         Demande de réservation
                     </button>

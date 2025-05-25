@@ -83,7 +83,7 @@
                             <div class="mr-4">
                                 <span class="text-2xl font-bold"><%= trajet.get("tarif") %> € / passagers</span>
                             </div>
-                            <a href="pathdetail" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Réserver</a>
+                            <a href="${pageContext.request.contextPath}/pathdetail?id=<%= trajet.get("id") %>" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Réserver</a>
                         </div>
                     </div>
                 </div>
