@@ -5,9 +5,13 @@
     Map<String, Object> trajet = (Map<String, Object>) request.getAttribute("trajet");
     Map<String, Object> conducteur = (Map<String, Object>) request.getAttribute("conducteur");
     List<Map<String, Object>> passagers = (List<Map<String, Object>>) request.getAttribute("passagers");
+    Boolean dejaReserve = (Boolean) request.getAttribute("dejaReserve");
     if (trajet == null) {
         response.sendRedirect("createdpath");
         return;
+    }
+    if (dejaReserve == null) {
+        dejaReserve = false;
     }
 %>
 <!DOCTYPE html>
@@ -150,14 +154,32 @@
                 </div>
 
                 <div class="mt-8">
-                    <form method="post" action="pathdetail">
-                        <input type="hidden" name="action" value="reserve">
-                        <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
-                            <i class="far fa-calendar-plus mr-2"></i>
-                            Demande de réservation
-                        </button>
-                    </form>
+                    <% 
+                    Integer nbPlacesLibres = (Integer) trajet.get("nbplaceslibres");
+                    if (!dejaReserve && nbPlacesLibres > 0) { 
+                    %>
+                        <form method="post" action="pathdetail">
+                            <input type="hidden" name="action" value="reserve">
+                            <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
+                                <i class="far fa-calendar-plus mr-2"></i>
+                                Demande de réservation
+                            </button>
+                        </form>
+                    <% } else { %>
+                        <% if (dejaReserve) { %>
+                        <div class="text-center text-green-600 font-medium">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Vous avez déjà réservé ce trajet
+                        </div>
+                        <% } %>
+                        <% if (nbPlacesLibres <= 0) { %>
+                        <div class="text-center text-red-600 font-medium">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            Ce trajet est complet
+                        </div>
+                        <% } %>
+                    <% } %>
                 </div>
             </div>
         </div>

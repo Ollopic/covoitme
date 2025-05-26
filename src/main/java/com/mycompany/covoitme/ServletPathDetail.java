@@ -103,8 +103,25 @@ public class ServletPathDetail extends HttpServlet {
         passagers.add(passager);
       }
 
-      request.setAttribute("passagers", passagers);
+      HttpSession session = request.getSession();
+      Integer userId = (Integer) session.getAttribute("userId");
+      boolean dejaReserve = false;
 
+      if (userId != null) {
+        String queryDejaReserve =
+          "SELECT COUNT(*) FROM passagertrajet WHERE utilisateur_id = ? AND trajet_id = ?";
+        PreparedStatement stmtDejaReserve = connection.prepareStatement(queryDejaReserve);
+        stmtDejaReserve.setInt(1, userId);
+        stmtDejaReserve.setInt(2, trajetId);
+        ResultSet resultDejaReserve = stmtDejaReserve.executeQuery();
+
+        if (resultDejaReserve.next() && resultDejaReserve.getInt(1) > 0) {
+          dejaReserve = true;
+        }
+      }
+
+      request.setAttribute("dejaReserve", dejaReserve);
+      request.setAttribute("passagers", passagers);
       request.setAttribute("trajet", trajet);
       request.setAttribute("conducteur", conducteur);
       request.getRequestDispatcher("/pathDetail.jsp").forward(request, response);
