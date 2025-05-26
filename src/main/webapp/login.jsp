@@ -13,6 +13,12 @@
         Bienvenue sur Covoitme !
     </div>
 
+    <% if(request.getAttribute("errorMessage") != null) { %>
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+        <%= request.getAttribute("errorMessage") %>
+      </div>
+    <% } %>
+
     <div class="flex justify-center mb-6">
       <button id="showLogin" class="text-blue-600 font-semibold mr-4">Connexion</button>
       <button id="showRegister" class="text-gray-500 font-semibold">Inscription</button>
