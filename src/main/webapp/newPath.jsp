@@ -71,7 +71,7 @@
 
         <div>
           <label for="places" class="block text-sm font-medium text-gray-700">Nombre de places disponibles</label>
-          <select id="places" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select id="places" name="places" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option>1 passager</option>
             <option>2 passagers</option>
             <option>3 passagers</option>

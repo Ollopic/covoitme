@@ -41,7 +41,7 @@ public class ServletNewPath extends HttpServlet {
       Float tarif = Float.parseFloat(request.getParameter("tarif"));
       String commentaire = request.getParameter("commentaire");
 
-      int nbPlaces = 1; // Valeur par défaut
+      int nbPlaces = 1;
       if (nbPlacesStr != null) {
         // Extraction du nombre depuis la chaîne "X passagers"
         nbPlaces = Integer.parseInt(nbPlacesStr.split(" ")[0]);

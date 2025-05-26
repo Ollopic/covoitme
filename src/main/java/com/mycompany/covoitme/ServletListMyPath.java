@@ -24,6 +24,7 @@ import java.util.Date;
  */
 @WebServlet(name = "ServletMyPath", urlPatterns = { "/mypath" })
 public class ServletListMyPath extends HttpServlet {
+
   /**
    * Handles the HTTP <code>GET</code> method.
    *
