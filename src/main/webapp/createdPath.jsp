@@ -75,7 +75,7 @@
 
                                     <div class="mt-3 flex flex-wrap gap-3">
                                         <div class="text-sm bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                            <i class="fas fa-chair mr-1"></i> <%= trajet.get("nbplaceslibres") %> places disponibles
+                                            <i class="fas fa-chair mr-1"></i> <%= trajet.get("nbplaceslibres") %> places disponible(s)
                                         </div>
                                         <div class="text-sm bg-green-50 text-green-700 px-2 py-1 rounded-full">
                                             <i class="fas fa-euro-sign mr-1"></i> <%= trajet.get("tarif") %> € / personne
