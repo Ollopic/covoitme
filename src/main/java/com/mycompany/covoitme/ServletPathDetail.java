@@ -140,6 +140,7 @@ public class ServletPathDetail extends HttpServlet {
 
     if ("reserve".equals(action)) {
       String trajetIdStr = request.getParameter("trajet_id");
+      String nbPassagersStr = request.getParameter("nbPassagers");
 
       if (trajetIdStr == null || trajetIdStr.isEmpty()) {
         response.sendRedirect(request.getContextPath() + "/listpath");
@@ -148,6 +149,11 @@ public class ServletPathDetail extends HttpServlet {
 
       int trajetId;
       trajetId = Integer.parseInt(trajetIdStr);
+
+      int nbPassagers = 1;
+      if (nbPassagersStr != null && !nbPassagersStr.isEmpty()) {
+        nbPassagers = Integer.parseInt(nbPassagersStr);
+      }
 
       HttpSession session = request.getSession();
       Integer userId = (Integer) session.getAttribute("userId");
@@ -172,16 +178,19 @@ public class ServletPathDetail extends HttpServlet {
         placeStmt.setInt(1, trajetId);
         ResultSet placeResult = placeStmt.executeQuery();
 
-        if (placeResult.next() && placeResult.getInt("nbplaceslibres") > 0) {
-          String insertQuery = "INSERT INTO passagertrajet (utilisateur_id, trajet_id) VALUES (?, ?)";
+        if (placeResult.next() && placeResult.getInt("nbplaceslibres") >= nbPassagers) {
+          String insertQuery =
+            "INSERT INTO passagertrajet (utilisateur_id, trajet_id, nbmPlacesReservees) VALUES (?, ?, ?)";
           PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
           insertStmt.setInt(1, userId);
           insertStmt.setInt(2, trajetId);
+          insertStmt.setInt(3, nbPassagers);
           insertStmt.executeUpdate();
 
-          String updateQuery = "UPDATE trajet SET nbplaceslibres = nbplaceslibres - 1 WHERE id = ?";
+          String updateQuery = "UPDATE trajet SET nbplaceslibres = nbplaceslibres - ? WHERE id = ?";
           PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
-          updateStmt.setInt(1, trajetId);
+          updateStmt.setInt(1, nbPassagers);
+          updateStmt.setInt(2, trajetId);
           updateStmt.executeUpdate();
 
           response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);

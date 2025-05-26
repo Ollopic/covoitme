@@ -29,6 +29,7 @@ CREATE TABLE Trajet (
 CREATE TABLE PassagerTrajet (
     trajet_id INT,
     utilisateur_id INT,
+    nbmPlacesReservees INT,
     PRIMARY KEY (utilisateur_id, trajet_id),
     FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id),
     FOREIGN KEY (trajet_id) REFERENCES Trajet(id)
