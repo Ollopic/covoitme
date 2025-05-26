@@ -75,7 +75,7 @@
                     <div class="mt-4 md:mt-0 flex flex-col items-end justify-between">
                         <div class="flex items-center mb-4">
                             <div class="h-8 w-8 rounded-full overflow-hidden mr-2">
-                                <img class="w-12 h-12 rounded-full border-2" src="<%= session.getAttribute("conducteurprofilepic") %>" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'" alt="user photo">
+                                <img class="w-12 h-12 rounded-full border-2" src="<%= trajet.get("conducteurprofilepic") %>" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'" alt="user photo">
                             </div>
                             <span class="font-medium"><%= trajet.get("conducteur") %></span>
                         </div>

@@ -163,9 +163,7 @@ public class ServletPathDetail extends HttpServlet {
         ResultSet checkResult = checkStmt.executeQuery();
 
         if (checkResult.next() && checkResult.getInt(1) > 0) {
-          response.sendRedirect(
-            request.getContextPath() + "/pathdetail?id=" + trajetId
-          );
+          response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
           return;
         }
 
@@ -186,9 +184,7 @@ public class ServletPathDetail extends HttpServlet {
           updateStmt.setInt(1, trajetId);
           updateStmt.executeUpdate();
 
-          response.sendRedirect(
-            request.getContextPath() + "/pathdetail?id=" + trajetId
-          );
+          response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
         } else {
           response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
         }

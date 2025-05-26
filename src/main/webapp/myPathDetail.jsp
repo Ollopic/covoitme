@@ -72,16 +72,16 @@
                     </li>
                     <li class="flex items-start">
                         <div class="text-gray-500 mr-4 mt-1">
-                            <i class="fas fa-comment"></i>
-                        </div>
-                        <span class="text-gray-700"><%= trajet.get("commentaire") %></span>
-                    </li>
-                    <li class="flex items-start">
-                        <div class="text-gray-500 mr-4 mt-1">
                             <i class="fas fa-euro-sign"></i>
                         </div>
                         <span class="text-gray-700"><%= trajet.get("tarif") %> €</span>
                     </li>
+                    <% if(trajet.get("commentaire") != null && !trajet.get("commentaire").toString().isEmpty()) { %>
+                        <div class="text-gray-500 mr-4 mt-1">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <span class="text-gray-700"><%= trajet.get("commentaire") %></span>
+                    <% } %>
                 </ul>
             </div>
             

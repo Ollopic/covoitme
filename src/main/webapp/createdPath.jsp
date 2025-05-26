@@ -98,12 +98,6 @@
                                 </div>
 
                                 <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                    <div class="flex flex-col space-y-2">
-                                        <div class="text-sm text-gray-500">
-                                            Passagers confirmés: <%= trajet.get("passagers_confirmes") %>
-                                        </div>
-                                    </div>
-
                                     <div class="flex flex-col space-y-2 mt-4">
                                         <a href="${pageContext.request.contextPath}/mypathdetail?id=<%= trajet.get("id") %>" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
                                             <i class="fas fa-history mr-1"></i> Détails
