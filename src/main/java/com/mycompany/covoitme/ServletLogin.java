@@ -77,6 +77,7 @@ public class ServletLogin extends HttpServlet {
 
     if (errorMessage != null) {
       request.setAttribute("email", email);
+      request.setAttribute("errorMessage", errorMessage);
       request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
   }
