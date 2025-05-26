@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -112,6 +113,76 @@ public class ServletPathDetail extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/createdpath");
     } finally {
       DatabaseConnection.closeConnection(connection);
+    }
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String action = request.getParameter("action");
+
+    if ("reserve".equals(action)) {
+      String trajetIdStr = request.getParameter("trajet_id");
+
+      if (trajetIdStr == null || trajetIdStr.isEmpty()) {
+        response.sendRedirect(request.getContextPath() + "/listpath");
+        return;
+      }
+
+      int trajetId;
+      trajetId = Integer.parseInt(trajetIdStr);
+
+      HttpSession session = request.getSession();
+      Integer userId = (Integer) session.getAttribute("userId");
+
+      Connection connection = null;
+      try {
+        connection = DatabaseConnection.getConnection();
+
+        String checkQuery = "SELECT COUNT(*) FROM passagertrajet WHERE utilisateur_id = ? AND trajet_id = ?";
+        PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
+        checkStmt.setInt(1, userId);
+        checkStmt.setInt(2, trajetId);
+        ResultSet checkResult = checkStmt.executeQuery();
+
+        if (checkResult.next() && checkResult.getInt(1) > 0) {
+          response.sendRedirect(
+            request.getContextPath() + "/pathdetail?id=" + trajetId
+          );
+          return;
+        }
+
+        String placeQuery = "SELECT nbplaceslibres FROM trajet WHERE id = ?";
+        PreparedStatement placeStmt = connection.prepareStatement(placeQuery);
+        placeStmt.setInt(1, trajetId);
+        ResultSet placeResult = placeStmt.executeQuery();
+
+        if (placeResult.next() && placeResult.getInt("nbplaceslibres") > 0) {
+          String insertQuery = "INSERT INTO passagertrajet (utilisateur_id, trajet_id) VALUES (?, ?)";
+          PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
+          insertStmt.setInt(1, userId);
+          insertStmt.setInt(2, trajetId);
+          insertStmt.executeUpdate();
+
+          String updateQuery = "UPDATE trajet SET nbplaceslibres = nbplaceslibres - 1 WHERE id = ?";
+          PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+          updateStmt.setInt(1, trajetId);
+          updateStmt.executeUpdate();
+
+          response.sendRedirect(
+            request.getContextPath() + "/pathdetail?id=" + trajetId
+          );
+        } else {
+          response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
+        }
+      } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+        response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
+      } finally {
+        DatabaseConnection.closeConnection(connection);
+      }
+    } else {
+      response.sendRedirect(request.getContextPath() + "/listpath");
     }
   }
 }

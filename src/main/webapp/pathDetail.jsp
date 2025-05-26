@@ -6,7 +6,7 @@
     Map<String, Object> conducteur = (Map<String, Object>) request.getAttribute("conducteur");
     List<Map<String, Object>> passagers = (List<Map<String, Object>>) request.getAttribute("passagers");
     if (trajet == null) {
-        response.sendRedirect("createdpath?error=true");
+        response.sendRedirect("createdpath");
         return;
     }
 %>
@@ -150,10 +150,14 @@
                 </div>
 
                 <div class="mt-8">
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
-                        <i class="far fa-calendar-plus mr-2"></i>
-                        Demande de réservation
-                    </button>
+                    <form method="post" action="pathdetail">
+                        <input type="hidden" name="action" value="reserve">
+                        <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
+                            <i class="far fa-calendar-plus mr-2"></i>
+                            Demande de réservation
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
