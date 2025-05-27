@@ -21,8 +21,8 @@ services:
     container_name: covoitme-db
     environment:
       - POSTGRES_DB=covoitme
-      - POSTGRES_USER=covoitme_user
-      - POSTGRES_PASSWORD=covoitme_password
+      - POSTGRES_USER=covoitme
+      - POSTGRES_PASSWORD=password
     volumes:
       - db-data:/var/lib/postgresql/data
       - ./src/main/webapp/WEB-INF/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
