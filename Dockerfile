@@ -8,7 +8,7 @@ COPY nb-configuration.xml ./
 # Construction du war
 RUN mvn clean package
 
-FROM tomcat:9-jdk17-openjdk-slim
+FROM tomcat:10-jdk17-openjdk-slim
 
 # Suppression des applications par défaut de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
