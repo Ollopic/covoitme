@@ -107,6 +107,13 @@
                                             <a href="${pageContext.request.contextPath}/pathdetail?id=<%= trajet.get("id") %>" class="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition text-center text-sm">
                                                 <i class="fas fa-history mr-1"></i> Détails
                                             </a>
+                                            <form method="post" action="mypath" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ? Cette action est irréversible.');">
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
+                                                <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                    <i class="fas fa-times-circle mr-2"></i> Annuler ma réservation
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

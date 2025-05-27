@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.mycompany.covoitme;
 
 import com.mycompany.covoitme.resources.DatabaseConnection;
@@ -12,27 +8,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
-/**
- *
- * @author liritt
- */
 @WebServlet(name = "ServletMyPath", urlPatterns = { "/mypath" })
 public class ServletListMyPath extends HttpServlet {
 
-  /**
-   * Handles the HTTP <code>GET</code> method.
-   *
-   * @param request servlet request
-   * @param response servlet response
-   * @throws ServletException if a servlet-specific error occurs
-   * @throws IOException if an I/O error occurs
-   */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -104,13 +87,62 @@ public class ServletListMyPath extends HttpServlet {
     request.getRequestDispatcher("/myPath.jsp").forward(request, response);
   }
 
-  /**
-   * Returns a short description of the servlet.
-   *
-   * @return a String containing servlet description
-   */
   @Override
   public String getServletInfo() {
     return "Servlet qui charge les trajets réservés par l'utilisateur";
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+    String action = request.getParameter("action");
+
+    if ("delete".equals(action)) {
+      String trajetIdStr = request.getParameter("trajet_id");
+      if (trajetIdStr != null && !trajetIdStr.isEmpty()) {
+        int trajetId = Integer.parseInt(trajetIdStr);
+        HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        if (userId != null) {
+          Connection connection = null;
+          try {
+            connection = DatabaseConnection.getConnection();
+
+            String getReservationQuery =
+              "SELECT nbmPlacesReservees FROM passagertrajet WHERE trajet_id = ? AND utilisateur_id = ?";
+            PreparedStatement getStmt = connection.prepareStatement(getReservationQuery);
+            getStmt.setInt(1, trajetId);
+            getStmt.setInt(2, userId);
+            ResultSet rs = getStmt.executeQuery();
+
+            int nbPlaces = 1;
+            if (rs.next()) {
+              nbPlaces = rs.getInt("nbmPlacesReservees");
+            }
+
+            String deleteQuery = "DELETE FROM passagertrajet WHERE trajet_id = ? AND utilisateur_id = ?";
+            PreparedStatement deleteStmt = connection.prepareStatement(deleteQuery);
+            deleteStmt.setInt(1, trajetId);
+            deleteStmt.setInt(2, userId);
+            int rowsAffected = deleteStmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+              String updateQuery = "UPDATE trajet SET nbplaceslibres = nbplaceslibres + ? WHERE id = ?";
+              PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+              updateStmt.setInt(1, nbPlaces);
+              updateStmt.setInt(2, trajetId);
+              updateStmt.executeUpdate();
+            }
+          } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+          } finally {
+            DatabaseConnection.closeConnection(connection);
+          }
+        }
+      }
+    }
+
+    response.sendRedirect(request.getContextPath() + "/mypath");
   }
 }

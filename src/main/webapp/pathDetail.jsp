@@ -161,7 +161,7 @@
                         <form method="post" action="pathdetail">
                             <input type="hidden" name="action" value="reserve">
                             <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
-                            
+
                             <div class="mb-4 flex justify-center items-center">
                                 <label for="nbPassagers" class="mr-3 text-gray-700 font-medium">Nombre de passagers :</label>
                                 <select id="nbPassagers" name="nbPassagers" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -170,7 +170,7 @@
                                     <% } %>
                                 </select>
                             </div>
-                            
+
                             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
                                 <i class="far fa-calendar-plus mr-2"></i>
                                 Demande de réservation
