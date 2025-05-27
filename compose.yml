@@ -1,15 +1,39 @@
 services:
-  db:
-    image: postgres:latest
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: covoitme-app
+    ports:
+      - "8080:8080"
     environment:
-      POSTGRES_USER: covoitme
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: covoitme
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=covoitme
+      - DB_USER=covoitme_user
+      - DB_PASSWORD=covoitme_password
+    depends_on:
+      - db
+    restart: always
+    volumes:
+      - app-logs:/usr/local/tomcat/logs
+      # - app-data:/usr/local/tomcat/webapps/ROOT/data
+
+  db:
+    image: postgres:17.5
+    container_name: covoitme-db
+    environment:
+      - POSTGRES_DB=covoitme
+      - POSTGRES_USER=covoitme_user
+      - POSTGRES_PASSWORD=covoitme_password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./src/main/webapp/WEB-INF/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
-    volumes:
-      - covoitme_data:/var/lib/postgresql/data
-      - ./src/main/webapp/WEB-INF/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
 
 volumes:
-  covoitme_data:
+  db-data:
+  app-logs:
+  app-data:

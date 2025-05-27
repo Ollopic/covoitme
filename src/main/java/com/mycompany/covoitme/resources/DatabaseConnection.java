@@ -6,23 +6,28 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-  private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/covoitme";
-  private static final String USERNAME = "covoitme";
-  private static final String PASSWORD = "password";
+  public static Connection getConnection() throws ClassNotFoundException, SQLException {
+    String dbHost = System.getenv("DB_HOST") != null ? System.getenv("DB_HOST") : "localhost";
+    String dbPort = System.getenv("DB_PORT") != null ? System.getenv("DB_PORT") : "5432";
+    String dbName = System.getenv("DB_NAME") != null ? System.getenv("DB_NAME") : "covoitme";
+    String dbUser = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : "covoitme_user";
+    String dbPassword = System.getenv("DB_PASSWORD") != null
+      ? System.getenv("DB_PASSWORD")
+      : "covoitme_password";
 
-  public static Connection getConnection() throws SQLException, ClassNotFoundException {
+    String url = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" + dbName;
+
     Class.forName("org.postgresql.Driver");
-
-    return DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);
+    return DriverManager.getConnection(url, dbUser, dbPassword);
   }
 
   public static void closeConnection(Connection connection) {
-    if (connection != null) {
-      try {
+    try {
+      if (connection != null && !connection.isClosed()) {
         connection.close();
-      } catch (SQLException e) {
-        System.err.println("Erreur lors de la fermeture de la connexion : " + e.getMessage());
       }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
 }
