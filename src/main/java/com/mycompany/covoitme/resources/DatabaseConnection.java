@@ -10,10 +10,8 @@ public class DatabaseConnection {
     String dbHost = System.getenv("DB_HOST") != null ? System.getenv("DB_HOST") : "localhost";
     String dbPort = System.getenv("DB_PORT") != null ? System.getenv("DB_PORT") : "5432";
     String dbName = System.getenv("DB_NAME") != null ? System.getenv("DB_NAME") : "covoitme";
-    String dbUser = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : "covoitme_user";
-    String dbPassword = System.getenv("DB_PASSWORD") != null
-      ? System.getenv("DB_PASSWORD")
-      : "covoitme_password";
+    String dbUser = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : "covoitme";
+    String dbPassword = System.getenv("DB_PASSWORD") != null ? System.getenv("DB_PASSWORD") : "password";
 
     String url = "jdbc:postgresql://" + dbHost + ":" + dbPort + "/" + dbName;
 

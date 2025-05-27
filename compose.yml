@@ -10,14 +10,11 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=covoitme
-      - DB_USER=covoitme_user
-      - DB_PASSWORD=covoitme_password
+      - DB_USER=covoitme
+      - DB_PASSWORD=password
     depends_on:
       - db
     restart: always
-    volumes:
-      - app-logs:/usr/local/tomcat/logs
-      # - app-data:/usr/local/tomcat/webapps/ROOT/data
 
   db:
     image: postgres:17.5
@@ -35,5 +32,3 @@ services:
 
 volumes:
   db-data:
-  app-logs:
-  app-data:
