@@ -173,7 +173,7 @@
 
                             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm py-2.5 px-4 rounded-lg flex items-center justify-center transition mx-auto">
                                 <i class="far fa-calendar-plus mr-2"></i>
-                                Demande de réservation
+                                Réserver ce trajet
                             </button>
                         </form>
                     <% } else { %>
