@@ -83,10 +83,10 @@
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-6">Destinations populaires</h2>
         <ul class="flex flex-wrap justify-center gap-4 text-blue-600 font-medium">
-          <li><a href="#" class="hover:underline">Paris → Lyon</a></li>
-          <li><a href="#" class="hover:underline">Marseille → Nice</a></li>
-          <li><a href="#" class="hover:underline">Lille → Bruxelles</a></li>
-          <li><a href="#" class="hover:underline">Bordeaux → Toulouse</a></li>
+          <li><a href="listpath?start=Paris&destination=Lyon" class="hover:underline">Paris → Lyon</a></li>
+          <li><a href="listpath?start=Marseille&destination=Nice" class="hover:underline">Marseille → Nice</a></li>
+          <li><a href="listpath?start=Lille&destination=Bruxelles" class="hover:underline">Lille → Bruxelles</a></li>
+          <li><a href="listpath?start=Bordeaux&destination=Toulouse" class="hover:underline">Bordeaux → Toulouse</a></li>
         </ul>
       </div>
     </section>
