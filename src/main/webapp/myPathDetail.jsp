@@ -3,8 +3,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-    var trajet = (Map<String, Object>) request.getAttribute("trajet");
-    var passagers = (List<Map<String, Object>>) request.getAttribute("passagers");
+    Map<String, Object> trajet = (Map<String, Object>) request.getAttribute("trajet");
+    List<Map<String, Object>> passagers = (List<Map<String, Object>>) request.getAttribute("passagers");
 
     if (passagers == null) passagers = new ArrayList<>();
 %>
