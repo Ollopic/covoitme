@@ -12,9 +12,13 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "ServletListCreatedPath", urlPatterns = { "/createdpath" })
 public class ServletListCreatedPath extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletListCreatedPath.class.getName());
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,7 +73,7 @@ public class ServletListCreatedPath extends HttpServlet {
       request.setAttribute("trajetsExpired", trajetsExpired);
     } catch (SQLException | ClassNotFoundException e) {
       errorMessage = "Erreur de base de données: " + e.getMessage();
-      e.printStackTrace();
+      logger.log(Level.SEVERE, errorMessage, e);
     } finally {
       DatabaseConnection.closeConnection(connection);
     }

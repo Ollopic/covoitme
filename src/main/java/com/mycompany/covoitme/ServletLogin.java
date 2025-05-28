@@ -12,10 +12,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet(name = "Login", urlPatterns = { "/login" })
 public class ServletLogin extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletLogin.class.getName());
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,7 +73,7 @@ public class ServletLogin extends HttpServlet {
           errorMessage = "Email ou mot de passe incorrect";
         }
       } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
+        logger.log(Level.SEVERE, e.getMessage(), e);
       } finally {
         DatabaseConnection.closeConnection(connection);
       }

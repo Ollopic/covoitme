@@ -12,10 +12,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet(name = "Register", urlPatterns = { "/register" })
 public class ServletRegister extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletRegister.class.getName());
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -108,7 +111,7 @@ public class ServletRegister extends HttpServlet {
         }
       } catch (SQLException | ClassNotFoundException e) {
         errorMessage = "Erreur de base de données: " + e.getMessage();
-        e.printStackTrace();
+        logger.severe(errorMessage);
       } finally {
         DatabaseConnection.closeConnection(connection);
       }

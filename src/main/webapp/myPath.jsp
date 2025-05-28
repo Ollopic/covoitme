@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*, java.text.*" %>
+<%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title>TODO supply a title</title>
+        <title>Liste de mes trajets</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>

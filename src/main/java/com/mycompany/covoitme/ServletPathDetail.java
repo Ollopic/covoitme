@@ -19,9 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @WebServlet(name = "PathDetail", urlPatterns = { "/pathdetail" })
 public class ServletPathDetail extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletPathDetail.class.getName());
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -126,7 +129,7 @@ public class ServletPathDetail extends HttpServlet {
       request.setAttribute("conducteur", conducteur);
       request.getRequestDispatcher("/pathDetail.jsp").forward(request, response);
     } catch (SQLException | ClassNotFoundException e) {
-      e.printStackTrace();
+      logger.severe("Erreur de la base de données: " + e.getMessage());
       response.sendRedirect(request.getContextPath() + "/createdpath");
     } finally {
       DatabaseConnection.closeConnection(connection);
@@ -180,7 +183,7 @@ public class ServletPathDetail extends HttpServlet {
 
         if (placeResult.next() && placeResult.getInt("nbplaceslibres") >= nbPassagers) {
           String insertQuery =
-            "INSERT INTO passagertrajet (utilisateur_id, trajet_id, nbmPlacesReservees) VALUES (?, ?, ?)";
+            "INSERT INTO passagertrajet (utilisateur_id, trajet_id, nbPlacesReservees) VALUES (?, ?, ?)";
           PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
           insertStmt.setInt(1, userId);
           insertStmt.setInt(2, trajetId);
@@ -198,7 +201,7 @@ public class ServletPathDetail extends HttpServlet {
           response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
         }
       } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
+        logger.severe("Erreur de la base de données: " + e.getMessage());
         response.sendRedirect(request.getContextPath() + "/pathdetail?id=" + trajetId);
       } finally {
         DatabaseConnection.closeConnection(connection);

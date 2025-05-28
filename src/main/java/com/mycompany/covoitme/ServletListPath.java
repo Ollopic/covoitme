@@ -11,9 +11,13 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "ServletListPath", urlPatterns = { "/listpath" })
 public class ServletListPath extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletListPath.class.getName());
 
   private String calculerDuree(Timestamp dateDepart, Timestamp dateArrivee) {
     long diffEnMillis = dateArrivee.getTime() - dateDepart.getTime();
@@ -145,7 +149,7 @@ public class ServletListPath extends HttpServlet {
       request.setAttribute("trajets", trajets);
     } catch (SQLException | ClassNotFoundException e) {
       errorMessage = "Erreur de base de données: " + e.getMessage();
-      e.printStackTrace();
+      logger.log(Level.SEVERE, errorMessage, e);
     } finally {
       DatabaseConnection.closeConnection(connection);
     }

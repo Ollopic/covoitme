@@ -15,9 +15,12 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.logging.Logger;
 
 @WebServlet(name = "NewHome", urlPatterns = { "/newpath" })
 public class ServletNewPath extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletNewPath.class.getName());
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -95,26 +98,26 @@ public class ServletNewPath extends HttpServlet {
 
         response.sendRedirect(request.getContextPath() + "/home?success=true");
       } catch (SQLException e) {
-        e.printStackTrace();
+        logger.severe("Erreur lors de l'insertion du nouveau trajet: " + e.getMessage());
         response.sendRedirect(request.getContextPath() + "/newpath?error=true");
       } finally {
         if (pstmt != null) {
           try {
             pstmt.close();
           } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Erreur lors de la fermeture du PreparedStatement: " + e.getMessage());
           }
         }
         if (conn != null) {
           try {
             conn.close();
           } catch (SQLException e) {
-            e.printStackTrace();
+            logger.severe("Erreur lors de la fermeture de la connexion: " + e.getMessage());
           }
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      logger.severe(e.getMessage());
       response.sendRedirect(request.getContextPath() + "/newpath?error=true");
     }
   }

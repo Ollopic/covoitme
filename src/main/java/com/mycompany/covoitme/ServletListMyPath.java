@@ -12,9 +12,13 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "ServletMyPath", urlPatterns = { "/mypath" })
 public class ServletListMyPath extends HttpServlet {
+
+  private static final Logger logger = Logger.getLogger(ServletListMyPath.class.getName());
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -75,7 +79,7 @@ public class ServletListMyPath extends HttpServlet {
       request.setAttribute("trajetsExpired", trajetsExpired);
     } catch (SQLException | ClassNotFoundException e) {
       errorMessage = "Erreur de base de données: " + e.getMessage();
-      e.printStackTrace();
+      logger.info(errorMessage);
     } finally {
       DatabaseConnection.closeConnection(connection);
     }
@@ -93,8 +97,7 @@ public class ServletListMyPath extends HttpServlet {
   }
 
   @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String action = request.getParameter("action");
 
     if ("delete".equals(action)) {
@@ -110,7 +113,7 @@ public class ServletListMyPath extends HttpServlet {
             connection = DatabaseConnection.getConnection();
 
             String getReservationQuery =
-              "SELECT nbmPlacesReservees FROM passagertrajet WHERE trajet_id = ? AND utilisateur_id = ?";
+              "SELECT nbPlacesReservees FROM passagertrajet WHERE trajet_id = ? AND utilisateur_id = ?";
             PreparedStatement getStmt = connection.prepareStatement(getReservationQuery);
             getStmt.setInt(1, trajetId);
             getStmt.setInt(2, userId);
@@ -118,7 +121,7 @@ public class ServletListMyPath extends HttpServlet {
 
             int nbPlaces = 1;
             if (rs.next()) {
-              nbPlaces = rs.getInt("nbmPlacesReservees");
+              nbPlaces = rs.getInt("nbPlacesReservees");
             }
 
             String deleteQuery = "DELETE FROM passagertrajet WHERE trajet_id = ? AND utilisateur_id = ?";
@@ -135,7 +138,7 @@ public class ServletListMyPath extends HttpServlet {
               updateStmt.executeUpdate();
             }
           } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
           } finally {
             DatabaseConnection.closeConnection(connection);
           }

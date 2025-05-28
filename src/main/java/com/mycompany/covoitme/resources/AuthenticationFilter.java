@@ -18,7 +18,7 @@ public class AuthenticationFilter implements Filter {
   private static final String[] PUBLIC_PATHS = { "/login", "/register", "/favicon.ico" };
 
   @Override
-  public void init(FilterConfig filterConfig) throws ServletException {}
+  public void init(FilterConfig filterConfig) {}
 
   @Override
   public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
