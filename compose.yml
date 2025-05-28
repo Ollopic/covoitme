@@ -1,8 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ollopic/covoitme:latest
     container_name: covoitme-app
     ports:
       - "8080:8080"
