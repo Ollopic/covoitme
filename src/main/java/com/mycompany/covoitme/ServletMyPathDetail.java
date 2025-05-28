@@ -44,6 +44,20 @@ public class ServletMyPathDetail extends HttpServlet {
 
     try {
       connection = DatabaseConnection.getConnection();
+
+      Integer utilisateurId = (Integer) request.getSession().getAttribute("userId");
+      String checkOwnerQuery = "SELECT COUNT(*) FROM trajet WHERE id = ? AND conducteur_id = ?";
+      PreparedStatement checkOwnerStmt = connection.prepareStatement(checkOwnerQuery);
+      checkOwnerStmt.setInt(1, trajetId);
+      checkOwnerStmt.setInt(2, utilisateurId);
+      ResultSet ownerResult = checkOwnerStmt.executeQuery();
+
+      if (ownerResult.next() && ownerResult.getInt(1) == 0) {
+        response.sendRedirect(request.getContextPath() + "/createdpath");
+        return;
+      }
+
+      connection = DatabaseConnection.getConnection();
       String query = "SELECT * FROM trajet WHERE id = ?";
       PreparedStatement stmt = connection.prepareStatement(query);
       stmt.setInt(1, trajetId);
@@ -107,17 +121,30 @@ public class ServletMyPathDetail extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    String action = request.getParameter("action");
-
-    if ("delete".equals(action)) {
-      String trajetIdStr = request.getParameter("trajet_id");
-
-      try {
-        int trajetId = Integer.parseInt(trajetIdStr);
-        Connection connection = null;
+      String action = request.getParameter("action");
+      
+      if ("delete".equals(action)) {
+        String trajetIdStr = request.getParameter("trajet_id");
+        
+        try {
+          int trajetId = Integer.parseInt(trajetIdStr);
+          Connection connection = null;
+          
 
         try {
           connection = DatabaseConnection.getConnection();
+
+          Integer utilisateurId = (Integer) request.getSession().getAttribute("userId");
+          String checkOwnerQuery = "SELECT COUNT(*) FROM trajet WHERE id = ? AND conducteur_id = ?";
+          PreparedStatement checkOwnerStmt = connection.prepareStatement(checkOwnerQuery);
+          checkOwnerStmt.setInt(1, trajetId);
+          checkOwnerStmt.setInt(2, utilisateurId);
+          ResultSet ownerResult = checkOwnerStmt.executeQuery();
+
+          if (ownerResult.next() && ownerResult.getInt(1) == 0) {
+            response.sendRedirect(request.getContextPath() + "/createdpath");
+            return;
+          }
 
           String deletePassagerQuery = "DELETE FROM passagertrajet WHERE trajet_id = ?";
           PreparedStatement stmtDeletePassager = connection.prepareStatement(deletePassagerQuery);
