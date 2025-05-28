@@ -17,5 +17,13 @@ Lemont Gaétan
 
 ## Prérequis
 
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git): Téléchargez et installez Git en suivant les instructions de votre OS. Pour vérifier que Git a été installé avec succès, exécutez `git --version`.
 - [Docker](https://docs.docker.com/get-docker/): Téléchargez et installez Docker en suivant les instructions de votre OS. Pour vérifier que Docker a été installé avec succès, exécutez `docker --version`.
+
+## Lancer localement
+
+1. Utilisez le fichier [compose de Docker](./compose.yml) pour lancer l'application :
+   ```bash
+   docker compose up -d
+   ```
+
+L'application sera accessible en local via l'adresse [http://localhost:8080](http://localhost:8080)

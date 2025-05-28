@@ -12,6 +12,8 @@ services:
       - DB_PASSWORD=password
     depends_on:
       - db
+    volumes:
+      - app-sql:/sql
     restart: always
 
   db:
@@ -23,10 +25,11 @@ services:
       - POSTGRES_PASSWORD=password
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./src/main/webapp/WEB-INF/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - app-sql:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     restart: always
 
 volumes:
   db-data:
+  app-sql:
