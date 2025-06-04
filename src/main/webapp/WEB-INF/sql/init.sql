@@ -34,3 +34,20 @@ CREATE TABLE PassagerTrajet (
     FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id),
     FOREIGN KEY (trajet_id) REFERENCES Trajet(id)
 );
+
+CREATE TABLE RequeteTrajet (
+    id SERIAL PRIMARY KEY,
+    trajet_id INT,
+    utilisateur_id INT,
+    adresseDepart VARCHAR(200),
+    adresseDestination VARCHAR(200),
+    commentaire VARCHAR(500),
+    dateArrivee TIMESTAMP,
+    dateDepart TIMESTAMP,
+    nbPlacesLibres INT,
+    villeDepart VARCHAR(100),
+    villeDestination VARCHAR(100),
+    tarif DECIMAL(6, 2),
+    FOREIGN KEY (trajet_id) REFERENCES Trajet(id),
+    FOREIGN KEY (utilisateur_id) REFERENCES Utilisateur(id)
+);

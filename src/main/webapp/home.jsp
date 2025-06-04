@@ -13,7 +13,11 @@
     <% if (request.getParameter("success") != null && request.getParameter("success").equals("true")) { %>
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
         <strong class="font-bold">Succès !</strong>
-        <span class="block sm:inline"> Votre trajet a été créé avec succès.</span>
+        <% if (request.getParameter("request") != null && request.getParameter("request").equals("true")) { %>
+          <span class="block sm:inline"> Votre demande de trajet a été créée avec succès.</span>
+        <% } else { %>
+          <span class="block sm:inline"> Votre trajet a été créé avec succès.</span>
+        <% } %>
       </div>
     <% } %>
 

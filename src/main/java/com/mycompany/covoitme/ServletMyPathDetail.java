@@ -121,15 +121,14 @@ public class ServletMyPathDetail extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-      String action = request.getParameter("action");
-      
-      if ("delete".equals(action)) {
-        String trajetIdStr = request.getParameter("trajet_id");
-        
-        try {
-          int trajetId = Integer.parseInt(trajetIdStr);
-          Connection connection = null;
-          
+    String action = request.getParameter("action");
+
+    if ("delete".equals(action)) {
+      String trajetIdStr = request.getParameter("trajet_id");
+
+      try {
+        int trajetId = Integer.parseInt(trajetIdStr);
+        Connection connection = null;
 
         try {
           connection = DatabaseConnection.getConnection();
