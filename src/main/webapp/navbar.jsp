@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <header class="bg-white shadow">
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="home.jsp" class="text-2xl font-bold text-blue-600">Covoitme</a>
+    <a href="home" class="text-2xl font-bold text-blue-600">Covoitme</a>
     <nav class="space-x-6 hidden md:flex">
       <a href="home" class="text-gray-700 hover:text-blue-600">Accueil</a>
       <a href="newpath" class="text-gray-700 hover:text-blue-600">Publier un trajet</a>
