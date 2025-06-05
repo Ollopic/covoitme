@@ -39,6 +39,7 @@ public class ServletRequestPath extends HttpServlet {
       String heureArrivee = request.getParameter("comeback");
       String nbPlacesStr = request.getParameter("places");
       String commentaire = request.getParameter("commentaire");
+      Float tarif = Float.parseFloat(request.getParameter("tarif"));
 
       int nbPlaces = 1;
       if (nbPlacesStr != null) {
@@ -74,7 +75,7 @@ public class ServletRequestPath extends HttpServlet {
       try {
         conn = DatabaseConnection.getConnection();
         String sql =
-          "INSERT INTO RequeteTrajet (villeDepart, villeDestination, adresseDepart, adresseDestination, dateDepart, dateArrivee, nbPlacesLibres, commentaire, utilisateur_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO RequeteTrajet (villeDepart, villeDestination, adresseDepart, adresseDestination, dateDepart, dateArrivee, nbPlacesLibres, commentaire, utilisateur_id, tarif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, villeDepart);
@@ -86,6 +87,7 @@ public class ServletRequestPath extends HttpServlet {
         pstmt.setInt(7, nbPlaces);
         pstmt.setString(8, commentaire);
         pstmt.setInt(9, requesterId);
+        pstmt.setFloat(10, tarif);
 
         pstmt.executeUpdate();
 

@@ -11,6 +11,28 @@
     </head>
     <body>
         <%@ include file="navbar.jsp" %>
+
+        <section class="bg-blue-50 py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Partez ensemble, voyagez mieux.</h1>
+                <form class="bg-white p-6 rounded shadow-md max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4" action="listpath">
+                    <input type="text" value="<%= request.getParameter("start") %>" name="start" placeholder="Départ" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <input type="text" value="<%= request.getParameter("destination") %>" name="destination" placeholder="Destination" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <input id="datePicker" name="date" type="date" value="<%= request.getParameter("date") %>" class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <%
+                        String selectedNbPassengers = request.getParameter("nbPassengers");
+                    %>
+                    <select class="col-span-1 md:col-span-1 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" name="nbPassengers">
+                        <option disabled <%= (selectedNbPassengers == null) ? "selected" : "" %>>Nombre de passagers</option>
+                        <option value="1" <%= "1".equals(selectedNbPassengers) ? "selected" : "" %>>1</option>
+                        <option value="2" <%= "2".equals(selectedNbPassengers) ? "selected" : "" %>>2</option>
+                        <option value="3" <%= "3".equals(selectedNbPassengers) ? "selected" : "" %>>3</option>
+                        <option value="4" <%= "4".equals(selectedNbPassengers) ? "selected" : "" %>>4</option>
+                    </select>
+                    <button type="submit" class="col-span-1 md:col-span-1 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Rechercher</button>
+                </form>
+            </div>
+        </section>
         <div class="flex flex-col items-center text-xl">
             <%
                 List<Map<String, Object>> trajets = (List<Map<String, Object>>) request.getAttribute("trajets");
@@ -19,7 +41,7 @@
                 if ((trajets != null && !trajets.isEmpty()) || (trajetsExpired != null && !trajetsExpired.isEmpty())) {
             %>
             <main class="container mx-auto px-4 py-8">
-                <h1 class="text-2xl font-bold mb-8">Mes demandes de trajet</h1>
+                <h1 class="text-2xl font-bold mb-8">Demandes de trajet</h1>
 
                 <% if (trajets != null && !trajets.isEmpty()) { %>
                 <div class="mb-8">
@@ -92,15 +114,7 @@
                                     </div>
 
                                     <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
-                                        <div class="flex flex-col space-y-2 mt-4">
-                                            <form method="post" action="listrequestpath" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette demande de trajet ? Cette action est irréversible.');">
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
-                                                <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                                    <i class="fas fa-times-circle mr-2"></i> Annuler ma demande de trajet
-                                                </button>
-                                            </form>
-                                        </div>
+                                        <a href="${pageContext.request.contextPath}/takerequest?id=<%= trajet.get("id") %>" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Prendre en charge cette demande</a>
                                     </div>
                                 </div>
                             </div>
@@ -170,7 +184,7 @@
                                                 <i class="fas fa-chair mr-1"></i> Terminé
                                             </div>
                                             <div class="text-sm bg-green-50 text-green-700 px-2 py-1 rounded-full">
-                                                <i class="fas fa-euro-sign mr-1"></i> <%= trajetExpired.get("tarifs") %> € / personne
+                                                <i class="fas fa-euro-sign mr-1"></i> <%= trajetExpired.get("tarif") %> € / personne
                                             </div>
                                         </div>
 
@@ -250,7 +264,7 @@
                 <path d="M137.076 98.9097L164.219 102.84L204.11 93.6776L193.974 149.593L152.445 155.48L111.898 147.955L137.076 98.9097Z" fill="#E3F5FF"></path>
                 <path d="M198.878 120.166L158.659 126.38L126.612 119.183M164.219 102.832L152.444 155.48L164.219 102.832Z" stroke="#CFDFE5" stroke-width="0.839822" stroke-miterlimit="10"></path>
             </svg>
-            <h1><span>Vos demandes de retour apparaîtront ici.</span></h1>
+            <h1><span>Les demandes de retour apparaîtront ici.</span></h1>
             <%
                 }
             %>

@@ -71,6 +71,11 @@
         </div>
 
         <div>
+          <label for="tarif" class="block text-sm font-medium text-gray-700">Prix par passager (€)</label>
+          <input type="number" id="tarif" name="tarif" min="0" step="0.01" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
           <label for="commentaire" class="block text-sm font-medium text-gray-700">Commentaire (optionnel)</label>
           <textarea id="commentaire" name="commentaire" rows="3" class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ex : bagages acceptés, animaux interdits..."></textarea>
         </div>
