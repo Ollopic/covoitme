@@ -35,7 +35,7 @@ CREATE TABLE PassagerTrajet (
     FOREIGN KEY (trajet_id) REFERENCES Trajet(id)
 );
 
-CREATE TABLE RequeteTrajet (
+CREATE TABLE DemandeTrajet (
     id SERIAL PRIMARY KEY,
     trajet_id INT,
     utilisateur_id INT,

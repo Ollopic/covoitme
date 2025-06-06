@@ -75,7 +75,7 @@ public class ServletPassengerNewPath extends HttpServlet {
       try {
         conn = DatabaseConnection.getConnection();
         String sql =
-          "INSERT INTO RequeteTrajet (villeDepart, villeDestination, adresseDepart, adresseDestination, dateDepart, dateArrivee, nbPlacesLibres, commentaire, utilisateur_id, tarif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO demandetrajet (villeDepart, villeDestination, adresseDepart, adresseDestination, dateDepart, dateArrivee, nbPlacesLibres, commentaire, utilisateur_id, tarif) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, villeDepart);

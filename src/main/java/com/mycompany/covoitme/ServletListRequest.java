@@ -32,7 +32,7 @@ public class ServletListRequest extends HttpServlet {
     Connection connection = null;
     try {
       connection = DatabaseConnection.getConnection();
-      String query = "SELECT rt.* FROM requetetrajet rt WHERE rt.utilisateur_id != ? and trajet_id is null";
+      String query = "SELECT rt.* FROM demandetrajet rt WHERE rt.utilisateur_id != ? and trajet_id is null";
       PreparedStatement stmt = connection.prepareStatement(query);
       stmt.setInt(1, (int) session.getAttribute("userId"));
 
@@ -98,7 +98,7 @@ public class ServletListRequest extends HttpServlet {
         try {
           connection = DatabaseConnection.getConnection();
 
-          String checkOwnerQuery = "SELECT COUNT(*) FROM requetetrajet WHERE id = ?";
+          String checkOwnerQuery = "SELECT COUNT(*) FROM demandetrajet WHERE id = ?";
           PreparedStatement checkOwnerStmt = connection.prepareStatement(checkOwnerQuery);
           checkOwnerStmt.setInt(1, requestId);
           ResultSet ownerResult = checkOwnerStmt.executeQuery();
@@ -108,7 +108,7 @@ public class ServletListRequest extends HttpServlet {
             return;
           }
 
-          String deleteTrajetQuery = "DELETE FROM requetetrajet WHERE id = ?";
+          String deleteTrajetQuery = "DELETE FROM demandetrajet WHERE id = ?";
           PreparedStatement stmtDeleteTrajet = connection.prepareStatement(deleteTrajetQuery);
           stmtDeleteTrajet.setInt(1, requestId);
           stmtDeleteTrajet.executeUpdate();

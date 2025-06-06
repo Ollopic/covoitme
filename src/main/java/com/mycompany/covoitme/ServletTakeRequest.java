@@ -37,7 +37,7 @@ public class ServletTakeRequest extends HttpServlet {
 
         String insertQuery =
           "INSERT INTO trajet (tarif, adressedepart, adressedestination, datedepart, datearrivee, nbplaceslibres, villedepart, villedestination, conducteur_id, vehicule, immatriculation) " +
-          "SELECT tarif, adressedepart, adressedestination, datedepart, datearrivee, nbplaceslibres, villedepart, villedestination, ?, ?, ? FROM requetetrajet WHERE id = ? RETURNING id";
+          "SELECT tarif, adressedepart, adressedestination, datedepart, datearrivee, nbplaceslibres, villedepart, villedestination, ?, ?, ? FROM demandetrajet WHERE id = ? RETURNING id";
 
         PreparedStatement insertStmt = connection.prepareStatement(insertQuery);
         insertStmt.setInt(1, utilisateurId);
@@ -47,14 +47,14 @@ public class ServletTakeRequest extends HttpServlet {
         ResultSet newTrajetId = insertStmt.executeQuery();
 
         if (newTrajetId.next()) {
-          String updateQuery = "UPDATE requetetrajet SET trajet_id = ? WHERE id = ?";
+          String updateQuery = "UPDATE demandetrajet SET trajet_id = ? WHERE id = ?";
           PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
           updateStmt.setInt(1, newTrajetId.getInt("id"));
           updateStmt.setInt(2, requestId);
           updateStmt.executeUpdate();
 
           String addPassengersQuery =
-            "INSERT INTO passagertrajet (utilisateur_id, trajet_id, nbplacesreservees) SELECT utilisateur_id, ?, nbplaceslibres FROM requetetrajet WHERE id = ?";
+            "INSERT INTO passagertrajet (utilisateur_id, trajet_id, nbplacesreservees) SELECT utilisateur_id, ?, nbplaceslibres FROM demandetrajet WHERE id = ?";
           PreparedStatement addPassengersStmt = connection.prepareStatement(addPassengersQuery);
           addPassengersStmt.setInt(1, newTrajetId.getInt("id"));
           addPassengersStmt.setInt(2, requestId);
