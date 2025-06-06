@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.logging.Logger;
 
-@WebServlet(name = "RequestPath", urlPatterns = { "/requestpath" })
-public class ServletRequestPath extends HttpServlet {
+@WebServlet(name = "PassengerNewPath", urlPatterns = { "/passengerNewPath" })
+public class ServletPassengerNewPath extends HttpServlet {
 
-  private static final Logger logger = Logger.getLogger(ServletRequestPath.class.getName());
+  private static final Logger logger = Logger.getLogger(ServletPassengerNewPath.class.getName());
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-    request.getRequestDispatcher("/requestPath.jsp").forward(request, response);
+    request.getRequestDispatcher("/passengerNewPath.jsp").forward(request, response);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class ServletRequestPath extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/home?success=true&request=true");
       } catch (SQLException e) {
         logger.severe("Erreur lors de l'insertion de la demande de trajet: " + e.getMessage());
-        response.sendRedirect(request.getContextPath() + "/requestpath?error=true");
+        response.sendRedirect(request.getContextPath() + "/passengerNewPath?error=true");
       } finally {
         if (pstmt != null) {
           try {
@@ -113,7 +113,7 @@ public class ServletRequestPath extends HttpServlet {
       }
     } catch (Exception e) {
       logger.severe(e.getMessage());
-      response.sendRedirect(request.getContextPath() + "/requestpath?error=true");
+      response.sendRedirect(request.getContextPath() + "/passengerNewPath?error=true");
     }
   }
 }

@@ -22,7 +22,7 @@
           </div>
         <% } %>
 
-        <form action="${pageContext.request.contextPath}/requestpath" method="POST" class="space-y-4">
+        <form action="${pageContext.request.contextPath}/passengerNewPath" method="POST" class="space-y-4">
         <div>
           <label for="villeDepart" class="block text-sm font-medium text-gray-700">Ville de départ</label>
           <input type="text" placeholder="Reims..." id="villeDepart" name="villeDepart" required class="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />

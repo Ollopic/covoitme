@@ -104,7 +104,7 @@ public class ServletListRequest extends HttpServlet {
           ResultSet ownerResult = checkOwnerStmt.executeQuery();
 
           if (ownerResult.next() && ownerResult.getInt(1) == 0) {
-            response.sendRedirect(request.getContextPath() + "/listrequestpath");
+            response.sendRedirect(request.getContextPath() + "/passenger-requests");
             return;
           }
 
@@ -113,16 +113,16 @@ public class ServletListRequest extends HttpServlet {
           stmtDeleteTrajet.setInt(1, requestId);
           stmtDeleteTrajet.executeUpdate();
 
-          response.sendRedirect(request.getContextPath() + "/listrequestpath");
+          response.sendRedirect(request.getContextPath() + "/passenger-requests");
           return;
         } catch (SQLException | ClassNotFoundException e) {
           e.printStackTrace();
-          response.sendRedirect(request.getContextPath() + "/listrequestpath");
+          response.sendRedirect(request.getContextPath() + "/passenger-requests");
         } finally {
           DatabaseConnection.closeConnection(connection);
         }
       } catch (NumberFormatException e) {
-        response.sendRedirect(request.getContextPath() + "/listrequestpath");
+        response.sendRedirect(request.getContextPath() + "/passenger-requests");
       }
     }
   }

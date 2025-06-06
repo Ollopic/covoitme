@@ -29,7 +29,7 @@
 
         <a href="mypath" class="text-gray-700 hover:text-blue-600">Mes réservations</a>
         <a href="createdpath" class="text-gray-700 hover:text-blue-600">Mes trajets publiés</a>
-        <a href="listrequestpath" class="text-gray-700 hover:text-blue-600">Mes demandes de trajet</a>
+        <a href="passenger-requests" class="text-gray-700 hover:text-blue-600">Mes demandes de trajet</a>
     </nav>
     <div class="flex items-center gap-4">
         <a href="profile" class="flex bg-white rounded-full focus:ring-2 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-placement="bottom">

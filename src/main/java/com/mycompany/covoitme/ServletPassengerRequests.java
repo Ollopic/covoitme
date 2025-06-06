@@ -15,10 +15,10 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "ServletListRequestPath", urlPatterns = { "/listrequestpath" })
-public class ServletListRequestPath extends HttpServlet {
+@WebServlet(name = "ServletPassengerRequests", urlPatterns = { "/passenger-requests" })
+public class ServletPassengerRequests extends HttpServlet {
 
-  private static final Logger logger = Logger.getLogger(ServletListRequestPath.class.getName());
+  private static final Logger logger = Logger.getLogger(ServletPassengerRequests.class.getName());
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -80,7 +80,7 @@ public class ServletListRequestPath extends HttpServlet {
       request.setAttribute("errorMessage", errorMessage);
     }
 
-    request.getRequestDispatcher("/listRequestPath.jsp").forward(request, response);
+    request.getRequestDispatcher("/passengerRequests.jsp").forward(request, response);
   }
 
   @Override
@@ -104,7 +104,7 @@ public class ServletListRequestPath extends HttpServlet {
           ResultSet ownerResult = checkOwnerStmt.executeQuery();
 
           if (ownerResult.next() && ownerResult.getInt(1) == 0) {
-            response.sendRedirect(request.getContextPath() + "/listrequestpath");
+            response.sendRedirect(request.getContextPath() + "/passenger-requests");
             return;
           }
 
@@ -113,16 +113,16 @@ public class ServletListRequestPath extends HttpServlet {
           stmtDeleteTrajet.setInt(1, requestId);
           stmtDeleteTrajet.executeUpdate();
 
-          response.sendRedirect(request.getContextPath() + "/listrequestpath");
+          response.sendRedirect(request.getContextPath() + "/passenger-requests");
           return;
         } catch (SQLException | ClassNotFoundException e) {
           e.printStackTrace();
-          response.sendRedirect(request.getContextPath() + "/listrequestpath");
+          response.sendRedirect(request.getContextPath() + "/passenger-requests");
         } finally {
           DatabaseConnection.closeConnection(connection);
         }
       } catch (NumberFormatException e) {
-        response.sendRedirect(request.getContextPath() + "/listrequestpath");
+        response.sendRedirect(request.getContextPath() + "/passenger-requests");
       }
     }
   }

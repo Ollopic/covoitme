@@ -93,7 +93,7 @@
 
                                     <div class="mt-4 md:mt-0 md:ml-4 flex flex-col justify-between">
                                         <div class="flex flex-col space-y-2 mt-4">
-                                            <form method="post" action="listrequestpath" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette demande de trajet ? Cette action est irréversible.');">
+                                            <form method="post" action="passenger-requests" onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette demande de trajet ? Cette action est irréversible.');">
                                                 <input type="hidden" name="action" value="delete">
                                                 <input type="hidden" name="trajet_id" value="<%= trajet.get("id") %>">
                                                 <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
