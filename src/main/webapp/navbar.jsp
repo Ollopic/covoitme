@@ -22,7 +22,7 @@
             >
                 <div class="py-1">
                     <a href="newpath" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Publier un trajet</a>
-                    <a href="requestpath" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Demander un trajet</a>
+                    <a href="passengerNewPath" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Demander un trajet</a>
                 </div>
             </div>
         </div>
