@@ -27,13 +27,44 @@ Lemont Gaétan
 
 - [Docker](https://docs.docker.com/get-docker/): Téléchargez et installez Docker en suivant les instructions de votre OS. Pour vérifier que Docker a été installé avec succès, exécutez `docker --version`.
 
-## Lancer localement
+## Lancer en production
 
 1. Utilisez le fichier [compose de Docker](./compose.yml) pour lancer l'application :
    ```bash
    docker compose up -d
    ```
 
-   > **Note** : Le docker-compose utilise une image précompilée disponible sur Docker Hub. Cette approche évite d'avoir à compiler l'application en local, ce qui permet un déploiement plus rapide et simplifié.
+> **Note** : Le docker-compose utilise une image précompilée disponible sur Docker Hub. Cette approche évite d'avoir à compiler l'application en local, ce qui permet un déploiement plus rapide et simplifié.
 
 L'application sera accessible en local via l'adresse [http://localhost:8080](http://localhost:8080)
+
+## Build Docker Image
+
+Pour construire l'image Docker à la fois pour les architectures `linux/amd64` et `linux/arm64`, utilisez dans un premier temps la commande suivante afin de créer un builder multi-architecture :
+
+```bash
+docker buildx create --name multi-arch --platform "linux/arm64,linux/amd64,linux/arm/v7" --driver "docker-container"
+```
+
+Ensuite, il suffit de construire l'image Docker en utilisant le builder créé précédemment. Assurez-vous d'être dans le répertoire contenant le fichier `Dockerfile` :
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -f Dockerfile . -t ollopic/covoitme:latest --push
+```
+
+> **Note** : La commande permet de push directement l'image créé sur le Docker Hub. Si vous souhaitez uniquement construire l'image sans la pousser, vous pouvez omettre l'option `--push`.
+
+## Lancer localement
+
+Afin de lancer le projet pour le développement local, nous avons un docker-compose contenant une base de données PostgreSQL, et nous avons notre serveur web Tomcat d'installé sur notre machine. Pour lancer l'application, il faut dans un premier temps lancer la base de données :
+
+```bash
+docker compose -f compose-dev.yml up -d
+```
+
+Puis ensuite à chaque modification nous recompilons l'app et nous la déployons sur le serveur Tomcat, cela à l'aide d'un script que nous avons en local et contenant la commande suivante :
+
+```bash
+mvn clean package && sudo rm -rf /opt/tomcat/webapps/ROOT/ && sudo cp -r target/Covoitme-1.0-SNAPSHOT/* /var/lib/tomcat10/weba
+pps/ROOT/
+```
